@@ -4,11 +4,11 @@
 
 ![JustHTMLs Logo](https://img.shields.io/badge/JustHTMLs-HTML%20Tools-6366f1?style=for-the-badge)
 ![License](https://img.shields.io/badge/license-MIT-green?style=for-the-badge)
-![GitHub Stars](https://img.shields.io/github/stars/justhtmls/justhtmls.github.io?style=for-the-badge)
+![GitHub Stars](https://img.shields.io/github/stars/justhtmls/justhtmls.com?style=for-the-badge)
 
 **开源 HTML 工具集 - 轻量、隐私、无需安装**
 
-[在线体验](https://justhtmls.github.io/) | [贡献指南](CONTRIBUTING.html) | [提交工具](https://github.com/justhtmls/justhtmls.github.io/issues/new?template=tool-submission.md)
+[在线体验](https://justhtmls.com/) | [贡献指南](CONTRIBUTING.html) | [提交工具](https://github.com/justhtmls/justhtmls.com/issues/new?template=tool-submission.md)
 
 </div>
 
@@ -46,14 +46,14 @@ JustHTMLs 是一个开源的 HTML 工具集平台，汇集各种轻量级的在�
 
 ### 在线使用
 
-直接访问 [JustHTMLs 网站](https://justhtmls.github.io/) 即可使用所有工具。
+直接访问 [JustHTMLs 网站](https://justhtmls.com/) 即可使用所有工具。
 
 ### 本地运行
 
 ```bash
 # 克隆仓库
-git clone https://github.com/justhtmls/justhtmls.github.io.git
-cd justhtmls.github.io
+git clone https://github.com/justhtmls/html-tools.git
+cd html-tools
 
 # 使用任意静态服务器运行
 python -m http.server 8000
@@ -72,13 +72,13 @@ npx serve .
 ### 方式一：通过 GitHub Issues（推荐）
 
 1. 创建你的工具（单文件 HTML）
-2. [创建工具提交 Issue](https://github.com/justhtmls/justhtmls.github.io/issues/new?template=tool-submission.md)
+2. [创建工具提交 Issue](https://github.com/justhtmls/html-toolsissues/new?template=tool-submission.md)
 3. 填写工具信息并粘贴代码
 4. 等待审核通过后合并
 
 ### 方式二：Pull Request
 
-1. Fork justhtmls/justhtmls.github.io 仓库
+1. Fork justhtmls/html-tools 仓库
 2. 在 `tools/` 目录下创建你的工具文件夹
 3. 按规范创建工具文件
 4. 更新 `index.json` 索引
@@ -110,7 +110,7 @@ tools/
 ## 项目结构
 
 ```
-justhtmls.github.io/
+justhtmls.com/
 ├── index.html              # 主站门户首页
 ├── index.json              # 工具索引文件
 ├── CONTRIBUTING.html       # 贡献指南

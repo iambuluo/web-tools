@@ -87,4 +87,4 @@ assignees: []
 
 **感谢你的贡献！我们会尽快审核你的提交。如有问题，我们会通过 Issue 与你联系。**
 
-💡 **提示**: 你也可以先加入 [JustHTMLs 组织](https://github.com/justhtmls) 成为成员，直接提交 PR 到 justhtmls/justhtmls.github.io。
+💡 **提示**: 你也可以先加入 [JustHTMLs 组织](https://github.com/justhtmls) 成为成员，直接提交 PR 到 justhtmls/html-tools。
