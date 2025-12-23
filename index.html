@@ -20,6 +20,7 @@
     <meta property="twitter:description" content="JustHTMLs 是一个开源的 HTML 工具集平台，汇集各种轻量级的在线工具，无需安装，即开即用。">
     
     <link rel="icon" href="/favicon.svg">
+    <link rel="manifest" href="/manifest.json">
     
     <!-- Structured Data (JSON-LD) -->
     <script type="application/ld+json">
@@ -66,7 +67,7 @@
     }
     </script>
     
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" onerror="this.onerror=null;this.href='/assets/vendor/fontawesome/css/all.min.css';">
     <style>
         :root {
             --primary: #6366f1;
@@ -926,6 +927,12 @@
         // Initialize
         loadHomeStats();
         loadTools();
+
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/service-worker.js').catch(() => {});
+            });
+        }
     </script>
     <script src="/assets/clicks.js" defer></script>
 </body>

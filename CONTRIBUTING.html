@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>贡献指南 - JustHTMLs</title>
     <link rel="canonical" href="https://www.htmls.dev/CONTRIBUTING.html">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" onerror="this.onerror=null;this.href='/assets/vendor/fontawesome/css/all.min.css';">
     <style>
         :root {
             --primary: #6366f1;
@@ -233,7 +233,7 @@
         <ul>
             <li><strong>单文件 HTML</strong> - 所有 HTML、CSS 和 JavaScript 都在一个文件中</li>
             <li><strong>无构建步骤</strong> - 不使用 React、JSX 或需要编译的技术</li>
-            <li><strong>CDN 依赖</strong> - 如需第三方库，从 CDN 加载</li>
+            <li><strong>本地依赖</strong> - 第三方库放入 assets/vendor，并提供 CDN 回退</li>
             <li><strong>保持精简</strong> - 代码量控制在几百行以内，便于维护和理解</li>
             <li><strong>隐私优先</strong> - 数据在浏览器本地处理，不发送到服务器</li>
         </ul>

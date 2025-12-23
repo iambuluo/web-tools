@@ -214,15 +214,15 @@
                     <div class="feature-icon">⚡</div>
                     <div class="feature-content">
                         <h4>避免 React</h4>
-                        <p>使用纯 JavaScript 或从 CDN 加载轻量级框架，更快的渲染和更少的 Bug</p>
+                        <p>使用纯 JavaScript 或 CDN 加载轻量级框架，失败时回退到本地资源</p>
                     </div>
                 </div>
 
                 <div class="feature-item">
                     <div class="feature-icon">📦</div>
                     <div class="feature-content">
-                        <h4>CDN 依赖</h4>
-                        <p>使用 cdnjs 或 jsDelivr 加载第三方库，使用带版本号的 URL 确保稳定性</p>
+                        <h4>本地依赖</h4>
+                        <p>第三方库放在 assets/vendor 并随仓库分发，适合离线环境</p>
                     </div>
                 </div>
 
@@ -396,7 +396,7 @@ tools/
             <ul style="margin-left: 20px; margin-top: 15px;">
                 <li>单文件 HTML，内联 CSS/JS</li>
                 <li>不使用 React 或需要构建的技术</li>
-                <li>从 CDN 加载第三方库</li>
+                <li>从本地 assets/vendor 加载第三方库</li>
                 <li>保持精简（建议 500 行以内）</li>
                 <li>数据本地处理，保护隐私</li>
             </ul>
@@ -405,7 +405,7 @@ tools/
             <div class="code-block">
 Build an HTML tool that [描述功能需求].
 No React.
-Use [特定库名] from CDN if needed.
+Use [特定库名] from CDN with local fallback if needed.
 Include [特定功能要求].
             </div>
         </div>
