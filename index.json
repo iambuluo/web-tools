@@ -1254,6 +1254,56 @@
       "repo": "https://github.com/justhtmls/html-tools"
     },
     {
+      "id": "salary-calculator",
+      "name": "工资计算器",
+      "slug": "salary-calculator",
+      "category": "utility",
+      "tags": [
+        "salary",
+        "tax",
+        "calculator",
+        "utility"
+      ],
+      "author": "JustHTMLs",
+      "authorUrl": "https://github.com/justhtmls",
+      "version": "1.0.0",
+      "description": "估算税后工资与个税支出，支持社保公积金扣除",
+      "longDescription": "工资计算器可按综合所得月度税率表估算税后到手工资、个税与社保公积金扣除，支持自定义扣除项。",
+      "icon": "💰",
+      "color": "#f97316",
+      "entry": "tools/salary-calculator/app.html",
+      "detail": "tools/salary-calculator/index.html",
+      "createdAt": "2025-12-25",
+      "updatedAt": "2025-12-25",
+      "featured": false,
+      "repo": "https://github.com/justhtmls/html-tools"
+    },
+    {
+      "id": "mortgage-calculator",
+      "name": "房贷计算器",
+      "slug": "mortgage-calculator",
+      "category": "utility",
+      "tags": [
+        "mortgage",
+        "loan",
+        "calculator",
+        "utility"
+      ],
+      "author": "JustHTMLs",
+      "authorUrl": "https://github.com/justhtmls",
+      "version": "1.0.0",
+      "description": "对比等额本息与等额本金，快速估算房贷月供",
+      "longDescription": "房贷计算器支持等额本息与等额本金两种方式，计算月供、总利息与还款总额，适合购房预算规划。",
+      "icon": "🏠",
+      "color": "#0ea5e9",
+      "entry": "tools/mortgage-calculator/app.html",
+      "detail": "tools/mortgage-calculator/index.html",
+      "createdAt": "2025-12-25",
+      "updatedAt": "2025-12-25",
+      "featured": false,
+      "repo": "https://github.com/justhtmls/html-tools"
+    },
+    {
       "id": "gradient-generator",
       "name": "渐变色生成器",
       "slug": "gradient-generator",
