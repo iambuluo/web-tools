@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>图片压缩工具</title>
     <link rel="canonical" href="https://www.htmls.dev/tools/image-compressor/app.html">
+    <script src="https://cdn.jsdelivr.net/npm/pako@2.1.0/dist/pako.min.js" onerror="this.onerror=null;this.src='/assets/vendor/pako/pako.min.js';"></script>
+    <script src="https://cdn.jsdelivr.net/npm/upng-js@2.1.0/UPNG.min.js" onerror="this.onerror=null;this.src='/assets/vendor/upng-js/UPNG.min.js';"></script>
     <style>
         :root {
             --accent: #22c55e;
@@ -263,8 +265,21 @@
             ctx.drawImage(image, 0, 0);
             const format = formatSelect.value;
             const quality = parseFloat(qualityInput.value);
-            canvas.toBlob((blob) => {
-                if (!blob) return;
+
+            const compressedUrlPromise = new Promise((resolve, reject) => {
+                if (format === 'image/png' && typeof UPNG !== 'undefined') {
+                    const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
+                    const cnum = Math.floor(quality * 256);
+                    const compressed = UPNG.encode([imageData.buffer], canvas.width, canvas.height, cnum);
+                    const blob = new Blob([compressed], { type: 'image/png' });
+                    resolve(blob);
+                } else {
+                    canvas.toBlob((blob) => {
+                        if (!blob) return;
+                        resolve(blob);
+                    }, format, quality);
+                }
+            }).then((blob) => {
                 const url = URL.createObjectURL(blob);
                 const previewImg = new Image();
                 previewImg.onload = () => URL.revokeObjectURL(url);
@@ -274,7 +289,7 @@
                 downloadLink.href = url;
                 downloadLink.download = `compressed.${format.split('/')[1]}`;
                 sizeInfo.textContent = `原图大小：${formatBytes(originalSize)} / 压缩后：${formatBytes(blob.size)}`;
-            }, format, format === 'image/png' ? undefined : quality);
+            });
         });
     </script>
     <script src="/assets/clicks.js" defer></script>
