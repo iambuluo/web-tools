@@ -160,27 +160,27 @@
 
     <script>
         const GITIGNORE_TEMPLATES = {
-                node: 'node_modules/
+            node: `node_modules/
 .DS_Store
 .npm
 .env
-',
-                python: '__pycache__/
+`,
+            python: `__pycache__/
 *.pyc
 .env
 .venv/
-',
-                java: '*.class
+`,
+            java: `*.class
 *.jar
 .target/
-',
-                macos: '.DS_Store
+`,
+            macos: `.DS_Store
 .AppleDouble
-',
-                windows: 'Thumbs.db
+`,
+            windows: `Thumbs.db
 Desktop.ini
-'
-            };
+`
+        };
 
             function generateGitignore() {
                 const selected = Array.from(document.querySelectorAll('.checkbox-group input:checked'))
