@@ -82,6 +82,17 @@
             --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.4);
         }
 
+        [data-theme="light"] {
+            --bg: #ffffff;
+            --bg-card: #f8fafc;
+            --bg-hover: #e2e8f0;
+            --text: #1e293b;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.15);
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -302,6 +313,29 @@
             box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
         }
 
+        .search-shortcut {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            color: var(--text-muted);
+            font-size: 11px;
+            pointer-events: none;
+            opacity: 0.6;
+        }
+
+        .search-shortcut kbd {
+            background: var(--bg-hover);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            padding: 2px 6px;
+            font-family: monospace;
+            font-size: 11px;
+        }
+
         .category-tabs {
             display: flex;
             gap: 8px;
@@ -510,6 +544,83 @@
             position: relative;
         }
 
+        .tool-card.favorite {
+            border-color: #fbbf24;
+            box-shadow: 0 0 0 1px rgba(251, 191, 36, 0.3);
+        }
+
+        .tool-card .favorite-btn {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            opacity: 0;
+            z-index: 10;
+        }
+
+        .tool-card:hover .favorite-btn {
+            opacity: 1;
+        }
+
+        .tool-card .favorite-btn:hover {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: var(--primary);
+        }
+
+        .tool-card .favorite-btn.active {
+            opacity: 1;
+            background: rgba(251, 191, 36, 0.2);
+            border-color: #fbbf24;
+            color: #fbbf24;
+        }
+
+        .tool-card .favorite-badge {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: linear-gradient(135deg, #fbbf24, #f59e0b);
+            color: white;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+        }
+
+        .favorites-section {
+            margin-bottom: 30px;
+        }
+
+        .favorites-section:empty {
+            display: none;
+        }
+
+        .favorites-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .favorites-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
         /* Empty State */
         .empty-state {
             text-align: center;
@@ -611,6 +722,9 @@
                     </div>
                 </a>
                 <div class="header-actions">
+                    <button class="btn btn-secondary" id="theme-toggle" title="切换主题">
+                        <i class="fas fa-moon"></i>
+                    </button>
                     <a href="https://github.com/justhtmls/html-tools/issues/new?template=feedback.md" target="_blank" class="btn btn-secondary">
                         <i class="fas fa-comment-dots"></i> 问题反馈
                     </a>
@@ -667,6 +781,9 @@
                     <div class="search-input-wrapper">
                         <i class="fas fa-search search-icon"></i>
                         <input type="text" class="search-input" id="search-input" placeholder="搜索工具名称、描述或标签...">
+                        <div class="search-shortcut">
+                            <kbd>Ctrl</kbd><kbd>K</kbd>
+                        </div>
                     </div>
                     <div class="sort-wrapper">
                         <i class="far fa-clock"></i>
@@ -686,6 +803,7 @@
 
         <section class="tools-section">
             <div class="container">
+                <div class="favorites-section" id="favorites-section"></div>
                 <div class="section-header">
                     <h2 class="section-title">工具列表</h2>
                     <span class="tools-count" id="tools-count-label">加载中...</span>
@@ -749,6 +867,8 @@
         let currentCategory = 'all';
         let searchQuery = '';
         let sortOption = 'updated-desc';
+        let favorites = JSON.parse(localStorage.getItem('justhtmls-favorites') || '[]');
+        let currentTheme = localStorage.getItem('justhtmls-theme') || 'dark';
 
         async function loadTools() {
             try {
@@ -758,6 +878,7 @@
                 renderCategories();
                 renderTools();
                 updateStats();
+                return Promise.resolve();
             } catch (error) {
                 console.error('Failed to load tools:', error);
                 document.getElementById('tools-grid').innerHTML = `
@@ -766,6 +887,7 @@
                         <p>加载工具列表失败，请刷新页面重试。</p>
                     </div>
                 `;
+                return Promise.reject(error);
             }
         }
 
@@ -799,7 +921,32 @@
             document.querySelectorAll('.category-tab').forEach(tab => {
                 tab.classList.toggle('active', tab.dataset.category === category);
             });
+            updateURL();
             renderTools();
+        }
+
+        function updateURL() {
+            const params = new URLSearchParams();
+            if (searchQuery) params.set('search', searchQuery);
+            if (currentCategory !== 'all') params.set('category', currentCategory);
+            if (sortOption !== 'updated-desc') params.set('sort', sortOption);
+            const newURL = window.location.pathname + (params.toString() ? '?' + params.toString() : '');
+            window.history.replaceState({}, '', newURL);
+        }
+
+        function loadURLState() {
+            const params = new URLSearchParams(window.location.search);
+            if (params.has('search')) {
+                searchQuery = params.get('search').toLowerCase();
+                document.getElementById('search-input').value = params.get('search');
+            }
+            if (params.has('category')) {
+                currentCategory = params.get('category');
+            }
+            if (params.has('sort')) {
+                sortOption = params.get('sort');
+                document.getElementById('sort-select').value = sortOption;
+            }
         }
 
         function filterTools() {
@@ -816,6 +963,72 @@
                 return filtered.sort((a, b) => withTimestamp(a) - withTimestamp(b));
             }
             return filtered.sort((a, b) => withTimestamp(b) - withTimestamp(a));
+        }
+
+        function toggleFavorite(toolId, event) {
+            event.preventDefault();
+            event.stopPropagation();
+            const index = favorites.indexOf(toolId);
+            if (index > -1) {
+                favorites.splice(index, 1);
+            } else {
+                favorites.push(toolId);
+            }
+            localStorage.setItem('justhtmls-favorites', JSON.stringify(favorites));
+            renderTools();
+            renderFavorites();
+        }
+
+        function renderFavorites() {
+            const container = document.getElementById('favorites-section');
+            if (!favorites.length) {
+                container.innerHTML = '';
+                return;
+            }
+
+            const favoriteTools = toolsData.tools.filter(tool => favorites.includes(tool.id));
+            if (!favoriteTools.length) {
+                container.innerHTML = '';
+                return;
+            }
+
+            container.innerHTML = `
+                <div class="favorites-title">
+                    <i class="fas fa-star" style="color: #fbbf24;"></i> 收藏的工具
+                </div>
+                <div class="favorites-grid">
+                    ${favoriteTools.map(tool => {
+                        const category = toolsData.categories.find(c => c.id === tool.category);
+                        const updatedAt = tool.updatedAt || tool.createdAt || '未知';
+                        return `
+                            <a href="${tool.entry}" class="tool-card favorite" style="--tool-color: ${tool.color}">
+                                <button class="favorite-btn active" onclick="toggleFavorite('${tool.id}', event)" title="取消收藏">
+                                    <i class="fas fa-star"></i>
+                                </button>
+                                <div class="tool-header">
+                                    <div class="tool-icon" style="background: ${tool.color}20; color: ${tool.color};">
+                                        ${tool.icon}
+                                    </div>
+                                    <div class="tool-info">
+                                        <div class="tool-title">${tool.name}</div>
+                                        <div class="tool-category">${category?.icon || ''} ${category?.name || '未分类'}</div>
+                                        <div class="tool-updated"><i class="far fa-clock"></i> ${updatedAt}</div>
+                                    </div>
+                                </div>
+                                <div class="tool-description">${tool.description}</div>
+                                <div class="tool-footer">
+                                    <div class="tool-tags">
+                                        ${tool.tags.slice(0, 3).map(tag => `<span class="tool-tag">${tag}</span>`).join('')}
+                                    </div>
+                                    <div class="tool-meta">
+                                        <i class="fas fa-arrow-right tool-arrow"></i>
+                                    </div>
+                                </div>
+                            </a>
+                        `;
+                    }).join('')}
+                </div>
+            `;
         }
 
         function renderTools() {
@@ -837,8 +1050,12 @@
             container.innerHTML = filteredTools.map(tool => {
                 const category = toolsData.categories.find(c => c.id === tool.category);
                 const updatedAt = tool.updatedAt || tool.createdAt || '未知';
+                const isFavorite = favorites.includes(tool.id);
                 return `
-                    <a href="${tool.entry}" class="tool-card" style="--tool-color: ${tool.color}">
+                    <a href="${tool.entry}" class="tool-card ${isFavorite ? 'favorite' : ''}" style="--tool-color: ${tool.color}">
+                        <button class="favorite-btn ${isFavorite ? 'active' : ''}" onclick="toggleFavorite('${tool.id}', event)" title="${isFavorite ? '取消收藏' : '收藏'}">
+                            <i class="fas fa-star"></i>
+                        </button>
                         ${tool.featured ? '<span class="featured-badge">精选</span>' : ''}
                         <div class="tool-header">
                             <div class="tool-icon" style="background: ${tool.color}20; color: ${tool.color};">
@@ -894,20 +1111,103 @@
         }
 
 
+        // Theme toggle
+        function initTheme() {
+            document.documentElement.setAttribute('data-theme', currentTheme);
+            const themeIcon = document.querySelector('#theme-toggle i');
+            themeIcon.className = currentTheme === 'light' ? 'fas fa-moon' : 'fas fa-sun';
+        }
+
+        document.getElementById('theme-toggle').addEventListener('click', () => {
+            currentTheme = currentTheme === 'light' ? 'dark' : 'light';
+            localStorage.setItem('justhtmls-theme', currentTheme);
+            initTheme();
+        });
+
+        // Keyboard shortcuts and navigation
+        let selectedToolIndex = -1;
+
+        function highlightTool(index) {
+            const cards = document.querySelectorAll('.tool-card');
+            cards.forEach((card, i) => {
+                card.style.outline = i === index ? `2px solid var(--primary)` : 'none';
+                card.style.outlineOffset = i === index ? '2px' : '0';
+            });
+            selectedToolIndex = index;
+            if (index >= 0 && cards[index]) {
+                cards[index].scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }
+        }
+
+        function openSelectedTool() {
+            if (selectedToolIndex >= 0) {
+                const cards = document.querySelectorAll('.tool-card');
+                if (cards[selectedToolIndex]) {
+                    cards[selectedToolIndex].click();
+                }
+            }
+        }
+
+        document.addEventListener('keydown', (e) => {
+            // Ctrl+K or Cmd+K to focus search
+            if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+                e.preventDefault();
+                document.getElementById('search-input').focus();
+                selectedToolIndex = -1;
+                highlightTool(-1);
+            }
+            // Escape to clear search or reset selection
+            if (e.key === 'Escape') {
+                if (document.activeElement === document.getElementById('search-input')) {
+                    document.getElementById('search-input').value = '';
+                    searchQuery = '';
+                    updateURL();
+                    renderTools();
+                    document.getElementById('search-input').blur();
+                }
+                selectedToolIndex = -1;
+                highlightTool(-1);
+            }
+            // Arrow keys for navigation (only when not typing in input)
+            if (!['input', 'textarea'].includes(document.activeElement.tagName.toLowerCase())) {
+                const cards = document.querySelectorAll('.tool-card');
+                if (cards.length > 0) {
+                    if (e.key === 'ArrowDown') {
+                        e.preventDefault();
+                        const nextIndex = selectedToolIndex < cards.length - 1 ? selectedToolIndex + 1 : 0;
+                        highlightTool(nextIndex);
+                    } else if (e.key === 'ArrowUp') {
+                        e.preventDefault();
+                        const prevIndex = selectedToolIndex > 0 ? selectedToolIndex - 1 : cards.length - 1;
+                        highlightTool(prevIndex);
+                    } else if (e.key === 'Enter' && selectedToolIndex >= 0) {
+                        e.preventDefault();
+                        openSelectedTool();
+                    }
+                }
+            }
+        });
+
         // Search functionality
         document.getElementById('search-input').addEventListener('input', (e) => {
             searchQuery = e.target.value.toLowerCase();
+            updateURL();
             renderTools();
         });
 
         document.getElementById('sort-select').addEventListener('change', (e) => {
             sortOption = e.target.value;
+            updateURL();
             renderTools();
         });
 
         // Initialize
+        loadURLState();
+        initTheme();
         loadHomeStats();
-        loadTools();
+        loadTools().then(() => {
+            renderFavorites();
+        });
 
     </script>
     <script src="assets/clicks.js" defer></script>
