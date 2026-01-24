@@ -1108,7 +1108,7 @@
         inputEl.addEventListener('input', scheduleConvert);
 
         exampleBtn.addEventListener('click', () => {
-            inputEl.value = "curl 'https://api.example.com/v1/orders?status=open' \\\n  -H 'Accept: application/json' \\\n  -H 'Authorization: Bearer sk-test' \\\n  -H 'Content-Type: application/json' \\\n  --data-raw '{\"page\":1,\"size\":20}'";
+            inputEl.value = "curl 'https://httpbin.org/post?status=open' \\\n  -H 'Accept: application/json' \\\n  -H 'Content-Type: application/json' \\\n  --compressed \\\n  --data-raw '{\"page\":1,\"size\":20}'";
             convert();
         });
 
