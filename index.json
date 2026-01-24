@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-01-02",
+  "lastUpdated": "2026-01-24",
   "tools": [
     {
       "id": "json-to-yaml",
@@ -49,6 +49,31 @@
       "detail": "tools/json-formatter/index.html",
       "createdAt": "2025-12-23",
       "updatedAt": "2025-12-23",
+      "featured": true,
+      "repo": "https://github.com/justhtmls/html-tools"
+    },
+    {
+      "id": "curl-converter",
+      "name": "CURL 转代码工具",
+      "slug": "curl-converter",
+      "category": "developer",
+      "tags": [
+        "curl",
+        "http",
+        "request",
+        "developer"
+      ],
+      "author": "JustHTMLs",
+      "authorUrl": "https://github.com/justhtmls",
+      "version": "1.0.0",
+      "description": "将 curl 命令转换成 JavaScript / Python / Java / Go 请求代码",
+      "longDescription": "CURL 转代码工具可以把浏览器复制的 curl 命令解析成 JavaScript fetch、Python requests、Java HttpClient 与 Go net/http 代码，支持常见 headers、body 与认证配置。",
+      "icon": "🧭",
+      "color": "#f59e0b",
+      "entry": "tools/curl-converter/app.html",
+      "detail": "tools/curl-converter/index.html",
+      "createdAt": "2026-01-24",
+      "updatedAt": "2026-01-24",
       "featured": true,
       "repo": "https://github.com/justhtmls/html-tools"
     },
