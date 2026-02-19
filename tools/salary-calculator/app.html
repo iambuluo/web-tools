@@ -329,60 +329,55 @@
     </div>
 
     <script>
-        const grossInput = document.getElementById('gross');
-        const insuranceRateInput = document.getElementById('insuranceRate');
-        const housingRateInput = document.getElementById('housingRate');
-        const specialDeductionInput = document.getElementById('specialDeduction');
-        const thresholdInput = document.getElementById('threshold');
-        const calculateBtn = document.getElementById('calculate');
-        const resetBtn = document.getElementById('reset');
+        document.addEventListener('DOMContentLoaded', function() {
+            const grossInput = document.getElementById('gross');
+            const insuranceRateInput = document.getElementById('insuranceRate');
+            const housingRateInput = document.getElementById('housingRate');
+            const specialDeductionInput = document.getElementById('specialDeduction');
+            const thresholdInput = document.getElementById('threshold');
+            const calculateBtn = document.getElementById('calculate');
+            const resetBtn = document.getElementById('reset');
 
-        const netSalaryEl = document.getElementById('netSalary');
-        const taxAmountEl = document.getElementById('taxAmount');
-        const socialAmountEl = document.getElementById('socialAmount');
-        const taxableIncomeEl = document.getElementById('taxableIncome');
-        const taxRateEl = document.getElementById('taxRate');
-        const quickDeductionEl = document.getElementById('quickDeduction');
-        const grossDisplayEl = document.getElementById('grossDisplay');
-        const specialDisplayEl = document.getElementById('specialDisplay');
-        const taxBadgeEl = document.getElementById('taxBadge');
+            const netSalaryEl = document.getElementById('netSalary');
+            const taxAmountEl = document.getElementById('taxAmount');
+            const socialAmountEl = document.getElementById('socialAmount');
+            const taxableIncomeEl = document.getElementById('taxableIncome');
+            const taxRateEl = document.getElementById('taxRate');
+            const quickDeductionEl = document.getElementById('quickDeduction');
+            const grossDisplayEl = document.getElementById('grossDisplay');
+            const specialDisplayEl = document.getElementById('specialDisplay');
+            const taxBadgeEl = document.getElementById('taxBadge');
 
-        const taxBrackets = [
-            { limit: 3000, rate: 0.03, quick: 0 },
-            { limit: 12000, rate: 0.10, quick: 210 },
-            { limit: 25000, rate: 0.20, quick: 1410 },
-            { limit: 35000, rate: 0.25, quick: 2660 },
-            { limit: 55000, rate: 0.30, quick: 4410 },
-            { limit: 80000, rate: 0.35, quick: 7160 },
-            { limit: Infinity, rate: 0.45, quick: 15160 }
-        ];
+            const taxBrackets = [
+                { limit: 3000, rate: 0.03, quick: 0 },
+                { limit: 12000, rate: 0.10, quick: 210 },
+                { limit: 25000, rate: 0.20, quick: 1410 },
+                { limit: 35000, rate: 0.25, quick: 2660 },
+                { limit: 55000, rate: 0.30, quick: 4410 },
+                { limit: 80000, rate: 0.35, quick: 7160 },
+                { limit: Infinity, rate: 0.45, quick: 15160 }
+            ];
 
-        function formatMoney(value) {
-            if (Number.isNaN(value)) return '--';
-            return value.toLocaleString('zh-CN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-        }
-
-        function getTaxInfo(taxableIncome) {
-            if (taxableIncome <= 0) {
-                return { rate: 0, quick: 0, label: '免税' };
+            function formatMoney(value) {
+                if (typeof value !== 'number' || isNaN(value)) return '--';
+                return value.toLocaleString('zh-CN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
             }
-            for (const bracket of taxBrackets) {
-                if (taxableIncome <= bracket.limit) {
-                    const label = `${Math.round(bracket.rate * 100)}%`;
-                    return { rate: bracket.rate, quick: bracket.quick, label };
+
+            function getTaxInfo(taxableIncome) {
+                if (taxableIncome <= 0) {
+                    return { rate: 0, quick: 0, label: '免税' };
                 }
+                for (let i = 0; i < taxBrackets.length; i++) {
+                    const bracket = taxBrackets[i];
+                    if (taxableIncome <= bracket.limit) {
+                        const label = `${Math.round(bracket.rate * 100)}%`;
+                        return { rate: bracket.rate, quick: bracket.quick, label };
+                    }
+                }
+                return { rate: 0.45, quick: 15160, label: '45%' }; // Fallback
             }
-            return { rate: 0, quick: 0, label: '免税' };
-        }
 
-        function updateResult() {
-            const gross = parseFloat(grossInput.value);
-            const insuranceRate = parseFloat(insuranceRateInput.value) || 0;
-            const housingRate = parseFloat(housingRateInput.value) || 0;
-            const specialDeduction = parseFloat(specialDeductionInput.value) || 0;
-            const threshold = parseFloat(thresholdInput.value) || 0;
-
-            if (!gross || gross <= 0) {
+            function clearResults() {
                 netSalaryEl.textContent = '--';
                 taxAmountEl.textContent = '--';
                 socialAmountEl.textContent = '--';
@@ -392,40 +387,59 @@
                 grossDisplayEl.textContent = '--';
                 specialDisplayEl.textContent = '--';
                 taxBadgeEl.textContent = '税率档位: --';
-                return;
             }
 
-            const socialAmount = gross * (insuranceRate + housingRate) / 100;
-            const taxableIncome = Math.max(gross - socialAmount - specialDeduction - threshold, 0);
-            const taxInfo = getTaxInfo(taxableIncome);
-            const tax = taxableIncome > 0 ? Math.max(taxableIncome * taxInfo.rate - taxInfo.quick, 0) : 0;
-            const netSalary = gross - socialAmount - tax;
+            function updateResult() {
+                const grossVal = grossInput.value;
+                const gross = parseFloat(grossVal);
+                
+                if (!grossVal || isNaN(gross) || gross <= 0) {
+                    clearResults();
+                    return;
+                }
 
-            netSalaryEl.textContent = `${formatMoney(netSalary)} 元`;
-            taxAmountEl.textContent = `${formatMoney(tax)} 元`;
-            socialAmountEl.textContent = `${formatMoney(socialAmount)} 元`;
-            taxableIncomeEl.textContent = `${formatMoney(taxableIncome)} 元`;
-            taxRateEl.textContent = taxInfo.rate === 0 ? '免税' : `${(taxInfo.rate * 100).toFixed(0)}%`;
-            quickDeductionEl.textContent = `${formatMoney(taxInfo.quick)} 元`;
-            grossDisplayEl.textContent = `${formatMoney(gross)} 元`;
-            specialDisplayEl.textContent = `${formatMoney(specialDeduction)} 元`;
-            taxBadgeEl.textContent = `税率档位: ${taxInfo.label}`;
-        }
+                const insuranceRate = parseFloat(insuranceRateInput.value) || 0;
+                const housingRate = parseFloat(housingRateInput.value) || 0;
+                const specialDeduction = parseFloat(specialDeductionInput.value) || 0;
+                const threshold = parseFloat(thresholdInput.value) || 0;
 
-        function resetForm() {
-            grossInput.value = '';
-            insuranceRateInput.value = '8';
-            housingRateInput.value = '7';
-            specialDeductionInput.value = '0';
-            thresholdInput.value = '5000';
-            updateResult();
-        }
+                const socialAmount = gross * (insuranceRate + housingRate) / 100;
+                const taxableIncome = Math.max(gross - socialAmount - specialDeduction - threshold, 0);
+                
+                const taxInfo = getTaxInfo(taxableIncome);
+                const tax = taxableIncome > 0 ? Math.max(taxableIncome * taxInfo.rate - taxInfo.quick, 0) : 0;
+                const netSalary = gross - socialAmount - tax;
 
-        calculateBtn.addEventListener('click', updateResult);
-        resetBtn.addEventListener('click', resetForm);
+                netSalaryEl.textContent = `${formatMoney(netSalary)} 元`;
+                taxAmountEl.textContent = `${formatMoney(tax)} 元`;
+                socialAmountEl.textContent = `${formatMoney(socialAmount)} 元`;
+                taxableIncomeEl.textContent = `${formatMoney(taxableIncome)} 元`;
+                taxRateEl.textContent = taxInfo.rate === 0 ? '免税' : `${(taxInfo.rate * 100).toFixed(0)}%`;
+                quickDeductionEl.textContent = `${formatMoney(taxInfo.quick)} 元`;
+                grossDisplayEl.textContent = `${formatMoney(gross)} 元`;
+                specialDisplayEl.textContent = `${formatMoney(specialDeduction)} 元`;
+                taxBadgeEl.textContent = `税率档位: ${taxInfo.label}`;
+            }
 
-        [grossInput, insuranceRateInput, housingRateInput, specialDeductionInput, thresholdInput].forEach((input) => {
-            input.addEventListener('input', updateResult);
+            function resetForm() {
+                grossInput.value = '';
+                insuranceRateInput.value = '8';
+                housingRateInput.value = '7';
+                specialDeductionInput.value = '0';
+                thresholdInput.value = '5000';
+                clearResults();
+            }
+
+            if(calculateBtn) calculateBtn.addEventListener('click', updateResult);
+            if(resetBtn) resetBtn.addEventListener('click', resetForm);
+
+            const inputs = [grossInput, insuranceRateInput, housingRateInput, specialDeductionInput, thresholdInput];
+            inputs.forEach(input => {
+                if(input) {
+                    input.addEventListener('input', updateResult);
+                    input.addEventListener('change', updateResult); // Add change event for better mobile support
+                }
+            });
         });
     </script>
     <script src="../../assets/clicks.js" defer></script>

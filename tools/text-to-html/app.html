@@ -260,50 +260,83 @@
     </div>
 
     <script>
-        function escapeHtml(text) {
-  return text.replace(/[&<>"']/g, ch => ({"&": "&amp;", "<": "&lt;", ">": "&gt;", """: "&quot;", "'": "&#39;"}[ch]));
-}
-
-        function transform(input) {
-            return escapeHtml(input).replace(/
-/g, "<br>");
-        }
-
-        function convert() {
-            const input = document.getElementById('input').value;
+        document.addEventListener('DOMContentLoaded', () => {
+            const inputEl = document.getElementById('input');
+            const outputEl = document.getElementById('output');
             const statusBox = document.getElementById('status-box');
             const statusMessage = document.getElementById('status-message');
-            const output = document.getElementById('output');
+            
+            // Get buttons - handling both old inline onclick and new listeners
+            const btns = document.querySelectorAll('.btn');
+            const convertBtn = btns[0]; // Assuming order: convert, sample, clear
+            const sampleBtn = btns[1];
+            const clearBtn = btns[2];
 
-            if (!input.trim()) {
-                statusBox.className = 'status-box error active';
-                statusMessage.textContent = '请输入内容再转换';
-                output.value = '';
-                return;
+            // Helper to safely attach listener
+            function attach(btn, fn) {
+                if(btn) {
+                    btn.removeAttribute('onclick');
+                    btn.onclick = null; // Clear property
+                    btn.addEventListener('click', fn);
+                }
             }
 
-            try {
-                const result = transform(input);
-                output.value = result;
-                statusBox.className = 'status-box active';
-                statusMessage.textContent = '✓ 转换完成';
-            } catch (error) {
-                statusBox.className = 'status-box error active';
-                statusMessage.textContent = '✗ 转换失败: ' + error.message;
-                output.value = '';
+            attach(convertBtn, convert);
+            attach(sampleBtn, loadSample);
+            attach(clearBtn, clearAll);
+
+            function escapeHtml(text) {
+                if (!text) return '';
+                return text.replace(/[&<>"']/g, function(ch) {
+                    switch(ch) {
+                        case '&': return '&amp;';
+                        case '<': return '&lt;';
+                        case '>': return '&gt;';
+                        case '"': return '&quot;';
+                        case "'": return '&#39;';
+                        default: return ch;
+                    }
+                });
             }
-        }
 
-        function clearAll() {
-            document.getElementById('input').value = '';
-            document.getElementById('output').value = '';
-            document.getElementById('status-box').classList.remove('active');
-        }
+            function transform(text) {
+                return escapeHtml(text).replace(/\n/g, "<br>");
+            }
 
-        function loadSample() {
-            document.getElementById('input').value = `Hello <World>`;
-            convert();
-        }
+            function convert() {
+                const text = inputEl.value;
+                if (!text || !text.trim()) {
+                    showStatus('error', '请输入内容再转换');
+                    outputEl.value = '';
+                    return;
+                }
+
+                try {
+                    const result = transform(text);
+                    outputEl.value = result;
+                    showStatus('success', '✓ 转换完成');
+                } catch (error) {
+                    console.error(error);
+                    showStatus('error', '✗ 转换失败: ' + error.message);
+                }
+            }
+
+            function clearAll() {
+                inputEl.value = '';
+                outputEl.value = '';
+                statusBox.classList.remove('active');
+            }
+
+            function loadSample() {
+                inputEl.value = 'Hello\n<World> & "Friends"';
+                convert();
+            }
+
+            function showStatus(type, msg) {
+                statusBox.className = 'status-box active ' + (type === 'error' ? 'error' : '');
+                statusMessage.textContent = msg;
+            }
+        });
     </script>
 
     <script src="../../assets/clicks.js" defer></script>
