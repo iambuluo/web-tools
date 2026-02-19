@@ -821,10 +821,21 @@
 
         <section class="container" style="padding: 60px 20px;">
             <div style="background: linear-gradient(135deg, var(--bg-card), var(--bg-hover)); border-radius: 20px; padding: 40px; text-align: center; border: 1px solid var(--border);">
-                <h2 style="font-size: 28px; margin-bottom: 16px;">🚀 收藏我们的工具</h2>
+                <h2 style="font-size: 28px; margin-bottom: 16px;">🚀 收藏与分享</h2>
                 <p style="color: var(--text-muted); max-width: 500px; margin: 0 auto 24px;">
-                    AiChatX Tools 致力于提供最便捷的在线工具体验。如果您觉得这些工具有用，请将其添加到您的书签中，以便随时访问。
+                    觉得这些工具好用？请收藏本站或分享给您的朋友，让更多人提高效率！
                 </p>
+                <div style="display: flex; justify-content: center; gap: 12px; margin-bottom: 24px;">
+                    <button class="btn btn-secondary" onclick="shareTo('wechat')" title="分享到微信">
+                        <i class="fab fa-weixin"></i> 微信
+                    </button>
+                    <button class="btn btn-secondary" onclick="shareTo('weibo')" title="分享到微博">
+                        <i class="fab fa-weibo"></i> 微博
+                    </button>
+                    <button class="btn btn-secondary" onclick="shareTo('copy')" title="复制链接">
+                        <i class="fas fa-link"></i> 复制链接
+                    </button>
+                </div>
                 <!-- <a href="https://github.com/aichatx.com.cn/html-tools/issues/new?template=tool-submission.md" target="_blank" class="btn btn-primary" style="font-size: 16px; padding: 12px 24px;">
                     <i class="fas fa-plus"></i> 提交新工具
                 </a> -->
@@ -1202,6 +1213,33 @@
             updateURL();
             renderTools();
         });
+
+        function shareTo(platform) {
+            const url = encodeURIComponent(window.location.href);
+            const title = encodeURIComponent(document.title);
+            let shareUrl = '';
+
+            switch(platform) {
+                case 'weibo':
+                    shareUrl = `http://service.weibo.com/share/share.php?url=${url}&title=${title}`;
+                    window.open(shareUrl, '_blank', 'width=600,height=500');
+                    break;
+                case 'wechat':
+                    // WeChat sharing usually requires JS-SDK, but for web we can show QR code
+                    // Here we'll just copy link as a fallback or alert
+                    if(navigator.share) {
+                        navigator.share({ title: document.title, url: window.location.href });
+                    } else {
+                        alert('请使用浏览器自带的分享功能分享到微信');
+                    }
+                    break;
+                case 'copy':
+                    navigator.clipboard.writeText(window.location.href).then(() => {
+                        alert('链接已复制到剪贴板！');
+                    });
+                    break;
+            }
+        }
 
         // Initialize
         loadURLState();
