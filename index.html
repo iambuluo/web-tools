@@ -29,20 +29,20 @@
     {
       "@context": "https://schema.org",
       "@type": "WebSite",
-      "name": "JustHTMLs",
+      "name": "AiChatX Tools",
       "url": "https://www.htmls.dev",
       "description": "开源 HTML 工具集 - 轻量、隐私、无需安装",
       "inLanguage": "zh-CN",
       "publisher": {
         "@type": "Organization",
-        "name": "JustHTMLs",
+        "name": "AiChatX Tools",
         "url": "https://www.htmls.dev",
         "logo": {
           "@type": "ImageObject",
           "url": "https://www.htmls.dev/favicon.svg"
         },
         "sameAs": [
-          "https://github.com/justhtmls/html-tools"
+          "https://github.com/aichatx.com.cn/html-tools"
         ]
       },
       "potentialAction": {
@@ -59,12 +59,12 @@
     {
       "@context": "https://schema.org",
       "@type": "Organization",
-      "name": "JustHTMLs",
+      "name": "AiChatX Tools",
       "url": "https://www.htmls.dev",
       "logo": "https://www.htmls.dev/favicon.svg",
       "description": "开源 HTML 工具集平台，汇集各种轻量级的在线工具",
       "sameAs": [
-        "https://github.com/justhtmls/html-tools"
+        "https://github.com/aichatx.com.cn/html-tools"
       ]
     }
     </script>
@@ -729,21 +729,21 @@
                     <button class="btn btn-secondary" id="theme-toggle" title="切换主题">
                         <i class="fas fa-moon"></i>
                     </button>
-                    <a href="https://github.com/justhtmls/html-tools/issues/new?template=feedback.md" target="_blank" class="btn btn-secondary">
+                    <!-- <a href="https://github.com/aichatx.com.cn/html-tools/issues/new?template=feedback.md" target="_blank" class="btn btn-secondary">
                         <i class="fas fa-comment-dots"></i> 问题反馈
-                    </a>
+                    </a> -->
                     <a href="tools-rank.html" class="btn btn-secondary">
                         <i class="fas fa-chart-line"></i> 工具排行
                     </a>
-                    <a href="https://github.com/justhtmls/html-tools/issues/new?template=tool-request.md" target="_blank" class="btn btn-secondary">
+                    <!-- <a href="https://github.com/aichatx.com.cn/html-tools/issues/new?template=tool-request.md" target="_blank" class="btn btn-secondary">
                         <i class="fas fa-lightbulb"></i> 提交需求
                     </a>
-                    <a href="https://github.com/justhtmls/html-tools" target="_blank" class="btn btn-secondary">
+                    <a href="https://github.com/aichatx.com.cn/html-tools" target="_blank" class="btn btn-secondary">
                         <i class="fab fa-github"></i> GitHub
                     </a>
-                    <a href="https://github.com/justhtmls/html-tools/issues/new?template=tool-submission.md" target="_blank" class="btn btn-primary">
+                    <a href="https://github.com/aichatx.com.cn/html-tools/issues/new?template=tool-submission.md" target="_blank" class="btn btn-primary">
                         <i class="fas fa-plus"></i> 贡献工具
-                    </a>
+                    </a> -->
                 </div>
             </div>
         </div>
@@ -822,13 +822,13 @@
 
         <section class="container" style="padding: 60px 20px;">
             <div style="background: linear-gradient(135deg, var(--bg-card), var(--bg-hover)); border-radius: 20px; padding: 40px; text-align: center; border: 1px solid var(--border);">
-                <h2 style="font-size: 28px; margin-bottom: 16px;">🚀 贡献你的工具</h2>
+                <h2 style="font-size: 28px; margin-bottom: 16px;">🚀 收藏我们的工具</h2>
                 <p style="color: var(--text-muted); max-width: 500px; margin: 0 auto 24px;">
-                    JustHTMLs 欢迎社区贡献！创建一个新的 HTML 工具，通过 GitHub Issues 提交，让我们一起构建最完整的工具集合。
+                    AiChatX Tools 致力于提供最便捷的在线工具体验。如果您觉得这些工具有用，请将其添加到您的书签中，以便随时访问。
                 </p>
-                <a href="https://github.com/justhtmls/html-tools/issues/new?template=tool-submission.md" target="_blank" class="btn btn-primary" style="font-size: 16px; padding: 12px 24px;">
+                <!-- <a href="https://github.com/aichatx.com.cn/html-tools/issues/new?template=tool-submission.md" target="_blank" class="btn btn-primary" style="font-size: 16px; padding: 12px 24px;">
                     <i class="fas fa-plus"></i> 提交新工具
-                </a>
+                </a> -->
             </div>
         </section>
     </main>
@@ -846,7 +846,7 @@
                         <li><a href="privacy.html">隐私政策</a></li>
                         <li><a href="terms.html">使用条款</a></li>
                         <li><a href="contact.html">联系我们</a></li>
-                        <li><a href="https://github.com/justhtmls/html-tools/issues" target="_blank"><i class="fas fa-bug"></i> 报告问题</a></li>
+                        <!-- <li><a href="https://github.com/aichatx.com.cn/html-tools/issues" target="_blank"><i class="fas fa-bug"></i> 报告问题</a></li> -->
                     </ul>
                 </div>
                 <div class="footer-section">
@@ -870,8 +870,8 @@
         let currentCategory = 'all';
         let searchQuery = '';
         let sortOption = 'updated-desc';
-        let favorites = JSON.parse(localStorage.getItem('justhtmls-favorites') || '[]');
-        let currentTheme = localStorage.getItem('justhtmls-theme') || 'dark';
+        let favorites = JSON.parse(localStorage.getItem('aichatx.com.cn-favorites') || '[]');
+        let currentTheme = localStorage.getItem('aichatx.com.cn-theme') || 'dark';
 
         async function loadTools() {
             try {
@@ -977,7 +977,7 @@
             } else {
                 favorites.push(toolId);
             }
-            localStorage.setItem('justhtmls-favorites', JSON.stringify(favorites));
+            localStorage.setItem('aichatx.com.cn-favorites', JSON.stringify(favorites));
             renderTools();
             renderFavorites();
         }
@@ -1123,7 +1123,7 @@
 
         document.getElementById('theme-toggle').addEventListener('click', () => {
             currentTheme = currentTheme === 'light' ? 'dark' : 'light';
-            localStorage.setItem('justhtmls-theme', currentTheme);
+            localStorage.setItem('aichatx.com.cn-theme', currentTheme);
             initTheme();
         });
 
