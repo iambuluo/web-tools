@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>房贷计算器</title>
-    <link rel="canonical" href="https://www.htmls.dev/tools/mortgage-calculator/app.html">
+    <link rel="canonical" href="https://www.aichatx.com.cn/tools/mortgage-calculator/app.html">
     <style>
         :root {
             --accent: #0ea5e9;
@@ -235,7 +235,7 @@
             <div class="grid">
                 <div>
                     <label>贷款金额 (万元)</label>
-                    <input type="number" id="principal" placeholder="例如 200" step="0.1">
+                    <input type="number" id="principal" placeholder="例如 200" step="0.1" value="100">
                 </div>
                 <div>
                     <label>贷款年限 (年)</label>
@@ -243,7 +243,7 @@
                 </div>
                 <div>
                     <label>年利率 (%)</label>
-                    <input type="number" id="rate" value="4.3" step="0.01">
+                    <input type="number" id="rate" value="3.2" step="0.01">
                 </div>
                 <div>
                     <label>还款方式</label>
@@ -295,125 +295,123 @@
     </div>
 
     <script>
-        const principalInput = document.getElementById('principal');
-        const yearsInput = document.getElementById('years');
-        const rateInput = document.getElementById('rate');
-        const methodInput = document.getElementById('method');
-        const calculateBtn = document.getElementById('calculate');
-        const resetBtn = document.getElementById('reset');
+        document.addEventListener('DOMContentLoaded', function() {
+            const principalInput = document.getElementById('principal');
+            const yearsInput = document.getElementById('years');
+            const rateInput = document.getElementById('rate');
+            const methodInput = document.getElementById('method');
+            const calculateBtn = document.getElementById('calculate');
+            const resetBtn = document.getElementById('reset');
 
-        const monthlyPaymentEl = document.getElementById('monthlyPayment');
-        const totalInterestEl = document.getElementById('totalInterest');
-        const totalPaymentEl = document.getElementById('totalPayment');
-        const monthlyDecreaseEl = document.getElementById('monthlyDecrease');
-        
-        // These elements were missing from the HTML or had wrong IDs in previous version
-        // We need to ensure they exist or handle them gracefully
-        const principalDisplayEl = document.getElementById('principalDisplay');
-        const monthlyRateEl = document.getElementById('monthlyRate');
-        const monthsEl = document.getElementById('months');
-        const firstMonthEl = document.getElementById('firstMonth');
-        const methodBadgeEl = document.getElementById('methodBadge');
-
-        function formatMoney(value) {
-            if (Number.isNaN(value) || value === undefined) return '--';
-            return value.toLocaleString('zh-CN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-        }
-
-        function updateResult() {
-            // Get input values
-            const principalWan = parseFloat(principalInput.value);
-            const years = parseFloat(yearsInput.value);
-            const annualRate = parseFloat(rateInput.value);
-            const method = methodInput.value; // 'equal-payment' or 'equal-principal'
-
-            if (!principalWan || !years || !annualRate) {
-                // Reset display if inputs are invalid
-                if(monthlyPaymentEl) monthlyPaymentEl.textContent = '--';
-                if(totalInterestEl) totalInterestEl.textContent = '--';
-                if(totalPaymentEl) totalPaymentEl.textContent = '--';
-                if(monthlyDecreaseEl) monthlyDecreaseEl.textContent = '--';
-                if(principalDisplayEl) principalDisplayEl.textContent = '--';
-                if(monthlyRateEl) monthlyRateEl.textContent = '--';
-                if(monthsEl) monthsEl.textContent = '--';
-                if(firstMonthEl) firstMonthEl.textContent = '--';
-                return;
-            }
-
-            // Calculations
-            const principal = principalWan * 10000;
-            const monthsCount = Math.round(years * 12);
-            const monthlyRate = annualRate / 100 / 12;
-
-            let monthlyPayment = 0;
-            let totalPayment = 0;
-            let totalInterest = 0;
-            let firstMonthPayment = 0;
-            let monthlyDecrease = 0;
-            let methodText = '等额本息';
-
-            if (method === 'equal-payment') {
-                // 等额本息
-                const factor = Math.pow(1 + monthlyRate, monthsCount);
-                monthlyPayment = (principal * monthlyRate * factor) / (factor - 1);
-                totalPayment = monthlyPayment * monthsCount;
-                totalInterest = totalPayment - principal;
-                firstMonthPayment = monthlyPayment;
-                monthlyDecrease = 0;
-                methodText = '等额本息';
-            } else {
-                // 等额本金
-                const monthlyPrincipal = principal / monthsCount;
-                // First month payment
-                firstMonthPayment = monthlyPrincipal + (principal * monthlyRate);
-                // Monthly decrease amount
-                monthlyDecrease = monthlyPrincipal * monthlyRate;
-                
-                // Total interest formula for equal principal
-                totalInterest = ((principal * monthsCount * monthlyRate) - (principal * monthlyRate * (monthsCount - 1) / 2)); 
-                // However, standard formula is: (months + 1) * principal * monthlyRate / 2
-                totalInterest = (monthsCount + 1) * principal * monthlyRate / 2;
-                
-                totalPayment = principal + totalInterest;
-                monthlyPayment = firstMonthPayment; // Display first month for "Monthly Payment"
-                methodText = '等额本金';
-            }
-
-            // Update UI
-            if(monthlyPaymentEl) monthlyPaymentEl.textContent = `${formatMoney(monthlyPayment)} 元`;
-            if(totalInterestEl) totalInterestEl.textContent = `${formatMoney(totalInterest)} 元`;
-            if(totalPaymentEl) totalPaymentEl.textContent = `${formatMoney(totalPayment)} 元`;
+            const monthlyPaymentEl = document.getElementById('monthlyPayment');
+            const totalInterestEl = document.getElementById('totalInterest');
+            const totalPaymentEl = document.getElementById('totalPayment');
+            const monthlyDecreaseEl = document.getElementById('monthlyDecrease');
             
-            if(monthlyDecreaseEl) {
-                monthlyDecreaseEl.textContent = method === 'equal-payment' 
-                    ? '固定' 
-                    : `${formatMoney(monthlyDecrease)} 元`;
+            const principalDisplayEl = document.getElementById('principalDisplay');
+            const monthlyRateEl = document.getElementById('monthlyRate');
+            const monthsEl = document.getElementById('months');
+            const firstMonthEl = document.getElementById('firstMonth');
+            const methodBadgeEl = document.getElementById('methodBadge');
+
+            function formatMoney(value) {
+                if (Number.isNaN(value) || value === undefined) return '--';
+                return value.toLocaleString('zh-CN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
             }
 
-            if(principalDisplayEl) principalDisplayEl.textContent = `${formatMoney(principal)} 元`;
-            if(monthlyRateEl) monthlyRateEl.textContent = `${(monthlyRate * 100).toFixed(4)}%`;
-            if(monthsEl) monthsEl.textContent = `${monthsCount} 期`;
-            if(firstMonthEl) firstMonthEl.textContent = `${formatMoney(firstMonthPayment)} 元`;
-            if(methodBadgeEl) methodBadgeEl.textContent = `还款方式: ${methodText}`;
-        }
+            function updateResult() {
+                // Get input values
+                const principalWan = parseFloat(principalInput.value);
+                const years = parseFloat(yearsInput.value);
+                const annualRate = parseFloat(rateInput.value);
+                const method = methodInput.value;
 
-        function resetForm() {
-            principalInput.value = '';
-            yearsInput.value = '30';
-            rateInput.value = '4.3';
-            methodInput.value = 'equal-payment';
-            if(methodBadgeEl) methodBadgeEl.textContent = '还款方式: 等额本息';
+                if (!principalWan || !years || !annualRate) {
+                    return;
+                }
+
+                // Calculations
+                const principal = principalWan * 10000;
+                const monthsCount = Math.round(years * 12);
+                const monthlyRate = annualRate / 100 / 12;
+
+                let monthlyPayment = 0;
+                let totalPayment = 0;
+                let totalInterest = 0;
+                let firstMonthPayment = 0;
+                let monthlyDecrease = 0;
+                let methodText = '等额本息';
+
+                if (method === 'equal-payment') {
+                    // 等额本息
+                    const factor = Math.pow(1 + monthlyRate, monthsCount);
+                    monthlyPayment = (principal * monthlyRate * factor) / (factor - 1);
+                    totalPayment = monthlyPayment * monthsCount;
+                    totalInterest = totalPayment - principal;
+                    firstMonthPayment = monthlyPayment;
+                    monthlyDecrease = 0;
+                    methodText = '等额本息';
+                } else {
+                    // 等额本金
+                    const monthlyPrincipal = principal / monthsCount;
+                    firstMonthPayment = monthlyPrincipal + (principal * monthlyRate);
+                    monthlyDecrease = monthlyPrincipal * monthlyRate;
+                    
+                    // Total interest
+                    totalInterest = (monthsCount + 1) * principal * monthlyRate / 2;
+                    totalPayment = principal + totalInterest;
+                    monthlyPayment = firstMonthPayment; 
+                    methodText = '等额本金';
+                }
+
+                // Update UI
+                if(monthlyPaymentEl) monthlyPaymentEl.textContent = `${formatMoney(monthlyPayment)} 元`;
+                if(totalInterestEl) totalInterestEl.textContent = `${formatMoney(totalInterest)} 元`;
+                if(totalPaymentEl) totalPaymentEl.textContent = `${formatMoney(totalPayment)} 元`;
+                
+                if(monthlyDecreaseEl) {
+                    monthlyDecreaseEl.textContent = method === 'equal-payment' 
+                        ? '固定' 
+                        : `${formatMoney(monthlyDecrease)} 元`;
+                }
+
+                if(principalDisplayEl) principalDisplayEl.textContent = `${formatMoney(principal)} 元`;
+                if(monthlyRateEl) monthlyRateEl.textContent = `${(monthlyRate * 100).toFixed(4)}%`;
+                if(monthsEl) monthsEl.textContent = `${monthsCount} 期`;
+                if(firstMonthEl) firstMonthEl.textContent = `${formatMoney(firstMonthPayment)} 元`;
+                if(methodBadgeEl) methodBadgeEl.textContent = `还款方式: ${methodText}`;
+            }
+
+            function resetForm() {
+                principalInput.value = '';
+                yearsInput.value = '30';
+                rateInput.value = '3.2';
+                methodInput.value = 'equal-payment';
+                
+                const elements = [
+                    monthlyPaymentEl, totalInterestEl, totalPaymentEl, monthlyDecreaseEl,
+                    principalDisplayEl, monthlyRateEl, monthsEl, firstMonthEl
+                ];
+                
+                elements.forEach(el => {
+                    if(el) el.textContent = '--';
+                });
+                
+                if(methodBadgeEl) methodBadgeEl.textContent = '还款方式: 等额本息';
+            }
+
+            if(calculateBtn) calculateBtn.addEventListener('click', updateResult);
+            if(resetBtn) resetBtn.addEventListener('click', resetForm);
+
+            [principalInput, yearsInput, rateInput, methodInput].forEach((input) => {
+                if(input) {
+                    input.addEventListener('input', updateResult);
+                    input.addEventListener('change', updateResult);
+                }
+            });
+            
+            // Initial calculation
             updateResult();
-        }
-
-        if(calculateBtn) calculateBtn.addEventListener('click', updateResult);
-        if(resetBtn) resetBtn.addEventListener('click', resetForm);
-
-        [principalInput, yearsInput, rateInput, methodInput].forEach((input) => {
-            if(input) {
-                input.addEventListener('input', updateResult);
-                input.addEventListener('change', updateResult);
-            }
         });
     </script>
     <script src="../../assets/clicks.js" defer></script>

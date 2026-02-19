@@ -45,7 +45,7 @@ git push
     python check_tools.py
     ```
 *   `inject_adsense.py`: 批量检查并注入 AdSense 代码（如果未来 AdSense 代码变了，可以修改此脚本后运行）。
-*   `replace_brand.py`: 批量替换品牌名称（如将 JustHTMLs 替换为 AiChatX Tools）。
+*   `replace_brand.py`: 批量替换品牌名称（如将 AiChatX Tools 替换为 AiChatX Tools）。
 
 ---
 

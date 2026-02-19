@@ -1,14 +1,14 @@
-# JustHTMLs
+# AiChatX Tools
 
 <div align="center">
 
-[![JustHTMLs Logo](https://img.shields.io/badge/JustHTMLs-HTML%20Tools-6366f1?style=for-the-badge)](https://htmls.dev/)
+[![AiChatX Tools Logo](https://img.shields.io/badge/AiChatX Tools-HTML%20Tools-6366f1?style=for-the-badge)](https://aichatx.com.cn/)
 [![License](https://img.shields.io/badge/license-MIT-green?style=for-the-badge)](LICENSE)
-[![GitHub Stars](https://img.shields.io/github/stars/justhtmls/html-tools?style=for-the-badge)](https://github.com/justhtmls/html-tools)
+[![GitHub Stars](https://img.shields.io/github/stars/aichatx.com.cn/html-tools?style=for-the-badge)](https://github.com/aichatx.com.cn/html-tools)
 
 **开源 HTML 工具集 - 轻量、隐私、无需安装**
 
-[在线体验](https://htmls.dev/) | [贡献指南](CONTRIBUTING.md) | [提交工具](https://github.com/justhtmls/html-tools/issues/new?template=tool-submission.md)
+[在线体验](https://aichatx.com.cn/) | [贡献指南](CONTRIBUTING.md) | [提交工具](https://github.com/aichatx.com.cn/html-tools/issues/new?template=tool-submission.md)
 
 </div>
 
@@ -18,7 +18,7 @@
 
 ## 项目简介
 
-JustHTMLs 是一个开源的 HTML 工具集平台，汇集各种轻量级的在线工具。所有工具均为单文件 HTML，无需安装，打开即用，数据在浏览器本地处理，保护您的隐私。
+AiChatX Tools 是一个开源的 HTML 工具集平台，汇集各种轻量级的在线工具。所有工具均为单文件 HTML，无需安装，打开即用，数据在浏览器本地处理，保护您的隐私。
 
 致力于打造最完整的中文 HTML 工具集合。
 
@@ -184,13 +184,13 @@ JustHTMLs 是一个开源的 HTML 工具集平台，汇集各种轻量级的在�
 
 ### 在线使用
 
-直接访问 [JustHTMLs 网站](https://htmls.dev/) 即可使用所有工具。
+直接访问 [AiChatX Tools 网站](https://aichatx.com.cn/) 即可使用所有工具。
 
 ### 本地运行
 
 ```bash
 # 克隆仓库
-git clone https://github.com/justhtmls/html-tools.git
+git clone https://github.com/aichatx.com.cn/html-tools.git
 cd html-tools
 
 # 使用任意静态服务器运行
@@ -212,13 +212,13 @@ npx serve .
 ### 方式一：通过 GitHub Issues（推荐）
 
 1. 创建你的工具（单文件 HTML）
-2. [创建工具提交 Issue](https://github.com/justhtmls/html-tools/issues/new?template=tool-submission.md)
+2. [创建工具提交 Issue](https://github.com/aichatx.com.cn/html-tools/issues/new?template=tool-submission.md)
 3. 填写工具信息并粘贴代码
 4. 等待审核通过后合并
 
 ### 方式二：Pull Request
 
-1. Fork justhtmls/html-tools 仓库
+1. Fork aichatx.com.cn/html-tools 仓库
 2. 在 `tools/` 目录下创建你的工具文件夹
 3. 按规范创建工具文件
 4. 更新 `index.json` 索引
