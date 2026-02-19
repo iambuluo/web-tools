@@ -2,5 +2,4 @@ User-agent: *
 Allow: /
 
 # Sitemap
-Sitemap: https://www.htmls.dev/sitemap.xml
-
+Sitemap: https://www.aichatx.com.cn/sitemap.xml
