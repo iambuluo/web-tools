@@ -272,6 +272,7 @@
             
             let originalImage = null;
             let aspectRatio = 0;
+            let currentBlobUrl = null;
 
             fileInput.addEventListener('change', (e) => {
                 const file = e.target.files[0];
@@ -351,29 +352,53 @@
                             const format = formatSelect.value;
                             const ext = format.split('/')[1];
                             
-                            // Use toDataURL for better compatibility with simple downloads
-                            const dataUrl = canvas.toDataURL(format, 0.92);
-                            
-                            // Update preview
-                            const resultImg = new Image();
-                            resultImg.src = dataUrl;
-                            preview.innerHTML = '';
-                            preview.appendChild(resultImg);
-                            
-                            // Setup download
-                            downloadLink.href = dataUrl;
-                            downloadLink.download = `resized_${width}x${height}.${ext}`;
-                            downloadLink.classList.remove('btn-disabled');
+                            // Use toBlob for better performance with large images
+                            canvas.toBlob((blob) => {
+                                if (!blob) {
+                                    throw new Error('图片生成失败');
+                                }
+
+                                // Revoke previous URL to prevent memory leaks
+                                if (currentBlobUrl) {
+                                    URL.revokeObjectURL(currentBlobUrl);
+                                }
+                                currentBlobUrl = URL.createObjectURL(blob);
+                                
+                                // Update preview
+                                const resultImg = new Image();
+                                resultImg.src = currentBlobUrl;
+                                preview.innerHTML = '';
+                                preview.appendChild(resultImg);
+                                
+                                // Setup download button state
+                                downloadLink.classList.remove('btn-disabled');
+                                downloadLink.dataset.filename = `resized_${width}x${height}.${ext}`;
+                                
+                                resizeBtn.textContent = btnText;
+                                resizeBtn.disabled = false;
+                            }, format, 0.92);
                             
                         } catch (err) {
                             console.error(err);
                             alert('处理失败: ' + err.message);
-                        } finally {
                             resizeBtn.textContent = btnText;
                             resizeBtn.disabled = false;
                         }
                     }, 50);
                 });
+            });
+
+            // Handle download click manually for better reliability
+            downloadLink.addEventListener('click', (e) => {
+                e.preventDefault();
+                if (downloadLink.classList.contains('btn-disabled') || !currentBlobUrl) return;
+
+                const tempLink = document.createElement('a');
+                tempLink.href = currentBlobUrl;
+                tempLink.download = downloadLink.dataset.filename || 'resized-image';
+                document.body.appendChild(tempLink);
+                tempLink.click();
+                document.body.removeChild(tempLink);
             });
         });
     </script>
