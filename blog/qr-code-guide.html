@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>二维码生成与解码全攻略：提升运营效率的实用技巧 - AiChatX Tools 博客</title>
+    <meta name="description" content="从活动推广到小程序跳转，二维码无处不在。本文讲解如何生成高分辨率二维码、批量处理、插入Logo，以及如何快速解码识别内容。">
+    <link rel="canonical" href="https://www.aichatx.com.cn/blog/qr-code-guide.html">
+    <link rel="icon" href="../favicon.svg">
+    <link rel="stylesheet" href="../assets/vendor/fontawesome/css/all.min.css">
+    
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2259331322940741" crossorigin="anonymous"></script>
+
+    <style>
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --secondary: #8b5cf6;
+            --bg: #0f172a;
+            --bg-card: #1e293b;
+            --bg-hover: #334155;
+            --text: #f1f5f9;
+            --text-muted: #94a3b8;
+            --border: #334155;
+        }
+
+        [data-theme="light"] {
+            --bg: #ffffff;
+            --bg-card: #f8fafc;
+            --bg-hover: #e2e8f0;
+            --text: #1e293b;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.8;
+            margin: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background: var(--bg-card);
+            border-bottom: 1px solid var(--border);
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 700;
+            font-size: 20px;
+        }
+
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+        }
+
+        article {
+            padding: 60px 0;
+        }
+
+        h1 {
+            font-size: 32px;
+            margin-bottom: 16px;
+            line-height: 1.3;
+        }
+
+        .meta {
+            color: var(--text-muted);
+            font-size: 14px;
+            margin-bottom: 40px;
+        }
+
+        h2 {
+            font-size: 24px;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            color: var(--text);
+        }
+
+        p {
+            margin-bottom: 20px;
+            color: var(--text-muted);
+            font-size: 16px;
+        }
+
+        ul {
+            margin-bottom: 20px;
+            color: var(--text-muted);
+            padding-left: 20px;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        .cta-box {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 30px;
+            margin: 40px 0;
+            text-align: center;
+        }
+
+        .btn {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 16px;
+        }
+
+        footer {
+            background: var(--bg-card);
+            border-top: 1px solid var(--border);
+            padding: 40px 0;
+            margin-top: 60px;
+            text-align: center;
+            color: var(--text-muted);
+        }
+        
+        .breadcrumb {
+            margin-bottom: 20px;
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+        
+        .breadcrumb a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="../index.html" class="logo">
+                    <div class="logo-icon">⚡</div>
+                    <span>AiChatX Tools</span>
+                </a>
+                <a href="../index.html" style="color: var(--text-muted); text-decoration: none; font-size: 14px;">
+                    <i class="fas fa-arrow-left"></i> 返回首页
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <article>
+            <div class="breadcrumb">
+                <a href="../index.html">首页</a> / <a href="index.html">博客</a> / 正文
+            </div>
+            
+            <h1>二维码生成与解码全攻略：提升运营效率的实用技巧</h1>
+            <div class="meta">
+                <span>发布于 2026-02-27</span> • <span>分类：效率工具</span>
+            </div>
+
+            <p>无论是活动落地页、App 下载、社群邀请还是商品详情页，二维码都是连接线上与线下的关键媒介。掌握二维码的生成与解码技巧，可以显著提升运营效率与数据准确性。</p>
+
+            <h2>如何生成高分辨率二维码</h2>
+            <ul>
+                <li><strong>选择合适尺寸：</strong> 300×300 以上适用于打印与海报。</li>
+                <li><strong>容错级别：</strong> 选择 <code>H</code> 容错以便插入 Logo。</li>
+                <li><strong>前景/背景颜色：</strong> 保持高对比度以提升识别率。</li>
+            </ul>
+
+            <div class="cta-box">
+                <h3>立即生成你的二维码</h3>
+                <p>支持自定义颜色、尺寸与 Logo，导出高清 PNG。</p>
+                <a href="../tools/qr-generator/app.html" class="btn">使用 二维码生成器</a>
+            </div>
+
+            <h2>批量处理与常见场景</h2>
+            <p>对于批量生成（如为多条链接生成二维码），建议在工具中粘贴一行一个的 URL，并使用统一样式导出；或者将数据转为 CSV 后通过自动化脚本批量生成。</p>
+
+            <h2>快速解码与内容校验</h2>
+            <p>当你需要验证海报中的二维码是否链接到正确页面时，使用在线解码工具即可上传图片并获取内容。</p>
+            <div class="cta-box">
+                <h3>上传图片立即解码</h3>
+                <p>支持本地图片与截图，自动识别并输出文本。</p>
+                <a href="../tools/qr-decoder/app.html" class="btn">使用 二维码解码器</a>
+            </div>
+        </article>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 AiChatX Tools. All Rights Reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
