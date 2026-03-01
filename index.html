@@ -744,57 +744,6 @@
             <div class="container">
                 <h1>AI ChatX - 国内可直连的 AI 工具聚合平台</h1>
                 <p>一站式使用 GPT、文心一言等主流模型，无需复杂设置，即刻开启高效创作。降低用户使用前沿 AI 工具的门槛，提供可落地的 AI 应用方案。</p>
-                <div class="stats">
-                    <div class="stat-item">
-                        <div class="stat-value">50+</div>
-                        <div class="stat-label">聚合工具</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-value">100+</div>
-                        <div class="stat-label">实战教程</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-value">10k+</div>
-                        <div class="stat-label">活跃用户</div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="features-section" style="padding: 40px 0;">
-            <div class="container">
-                <div class="tools-grid">
-                    <a href="#tools-section" onclick="selectCategory('all'); document.getElementById('search-input').value='GPT'; searchQuery='gpt'; renderTools();" class="tool-card clickable-card">
-                        <div class="tool-header">
-                            <div class="tool-icon" style="background: #e0e7ff; color: #6366f1;">💬</div>
-                            <div class="tool-info">
-                                <div class="tool-title">AI 聊天助手</div>
-                                <div class="tool-category">对话与问答</div>
-                            </div>
-                        </div>
-                        <div class="tool-description">集成 GPT-4、Claude 3、文心一言等主流大模型，支持国内直连，随时随地开启智能对话。</div>
-                    </a>
-                    <a href="#tools-section" onclick="selectCategory('all'); document.getElementById('search-input').value='写作'; searchQuery='写作'; renderTools();" class="tool-card clickable-card">
-                        <div class="tool-header">
-                            <div class="tool-icon" style="background: #fef3c7; color: #f59e0b;">✍️</div>
-                            <div class="tool-info">
-                                <div class="tool-title">AI 内容创作</div>
-                                <div class="tool-category">写作与方案</div>
-                            </div>
-                        </div>
-                        <div class="tool-description">专注于文案写作、论文润色、代码生成等实战场景，大幅提升您的创作效率。</div>
-                    </a>
-                    <a href="#tools-section" onclick="selectCategory('all'); document.getElementById('search-input').value='图片'; searchQuery='图片'; renderTools();" class="tool-card clickable-card">
-                        <div class="tool-header">
-                            <div class="tool-icon" style="background: #dcfce7; color: #10b981;">🎨</div>
-                            <div class="tool-info">
-                                <div class="tool-title">AI 绘画与设计</div>
-                                <div class="tool-category">视觉与设计</div>
-                            </div>
-                        </div>
-                        <div class="tool-description">聚合 Midjourney、DALL-E 3 等顶尖绘图 AI，提供提示词优化与设计实战指南。</div>
-                    </a>
-                </div>
             </div>
         </section>
 
@@ -982,8 +931,10 @@
         }
 
         function updateStats() {
-            document.getElementById('tools-count').textContent = toolsData.tools.length;
-            document.getElementById('categories-count').textContent = toolsData.categories.length;
+            const tc = document.getElementById('tools-count');
+            const cc = document.getElementById('categories-count');
+            if (tc) tc.textContent = toolsData.tools.length;
+            if (cc) cc.textContent = toolsData.categories.length;
         }
 
         function renderCategories() {
