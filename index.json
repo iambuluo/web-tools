@@ -3,6 +3,48 @@
   "lastUpdated": "2026-01-24",
   "tools": [
     {
+      "id": "ai-chat-assistant",
+      "name": "AI 聊天助手",
+      "slug": "ai-chat-assistant",
+      "category": "ai-chat",
+      "tags": ["gpt", "claude", "chat", "ai"],
+      "description": "集成 GPT-4、Claude 3 等主流大模型，支持国内直连。",
+      "icon": "💬",
+      "color": "#6366f1",
+      "entry": "index.html#tools-section",
+      "createdAt": "2026-03-01",
+      "updatedAt": "2026-03-01",
+      "featured": true
+    },
+    {
+      "id": "ai-content-writer",
+      "name": "AI 内容创作",
+      "slug": "ai-content-writer",
+      "category": "ai-writing",
+      "tags": ["writing", "blog", "content", "ai"],
+      "description": "专注于文案写作、论文润色、代码生成等实战场景。",
+      "icon": "✍️",
+      "color": "#f59e0b",
+      "entry": "index.html#tools-section",
+      "createdAt": "2026-03-01",
+      "updatedAt": "2026-03-01",
+      "featured": true
+    },
+    {
+      "id": "ai-art-painter",
+      "name": "AI 绘画与设计",
+      "slug": "ai-art-painter",
+      "category": "ai-painting",
+      "tags": ["midjourney", "dalle", "painting", "ai"],
+      "description": "聚合 Midjourney、DALL-E 3 等顶尖绘图 AI。",
+      "icon": "🎨",
+      "color": "#10b981",
+      "entry": "index.html#tools-section",
+      "createdAt": "2026-03-01",
+      "updatedAt": "2026-03-01",
+      "featured": true
+    },
+    {
       "id": "json-to-yaml",
       "name": "JSON 转 YAML",
       "slug": "json-to-yaml",
@@ -3184,6 +3226,24 @@
       "name": "实用工具",
       "icon": "🧰",
       "description": "日常生活中的实用小工具"
+    },
+    {
+      "id": "ai-chat",
+      "name": "AI 聊天",
+      "icon": "💬",
+      "description": "国内直连主流 AI 聊天助手"
+    },
+    {
+      "id": "ai-writing",
+      "name": "AI 写作",
+      "icon": "✍️",
+      "description": "专注于文案写作与方案创作"
+    },
+    {
+      "id": "ai-painting",
+      "name": "AI 绘画",
+      "icon": "🎨",
+      "description": "聚合全球顶尖 AI 绘画工具"
     }
   ]
 }

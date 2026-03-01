@@ -817,9 +817,7 @@
                     </div>
                 </div>
                 <div class="category-tabs" id="category-tabs">
-                    <button class="category-tab active" data-category="all">
-                        <i class="fas fa-th-large"></i> 全部
-                    </button>
+                    <!-- Categories will be rendered here by JS -->
                 </div>
             </div>
         </section>
@@ -828,7 +826,7 @@
             <div class="container">
                 <div class="favorites-section" id="favorites-section"></div>
                 <div class="section-header">
-                    <h2 class="section-title">常用效率工具</h2>
+                    <h2 class="section-title">工具列表</h2>
                     <span class="tools-count" id="tools-count-label">加载中...</span>
                 </div>
                 <div class="tools-grid" id="tools-grid">
@@ -952,9 +950,14 @@
 
         async function loadTools() {
             try {
-                const response = await fetch('./index.json');
-                if (!response.ok) throw new Error('Network response was not ok');
+                const response = await fetch('./index.json?v=' + Date.now());
+                if (!response.ok) throw new Error('HTTP error! status: ' + response.status);
                 const data = await response.json();
+                
+                if (!data || !data.tools || !data.categories) {
+                    throw new Error('Invalid data format');
+                }
+                
                 toolsData = data;
                 renderCategories();
                 renderTools();
@@ -962,12 +965,15 @@
                 return Promise.resolve();
             } catch (error) {
                 console.error('Failed to load tools:', error);
-                const container = document.getElementById('tools-grid');
-                if (container) {
-                    container.innerHTML = `
+                const grid = document.getElementById('tools-grid');
+                if (grid) {
+                    grid.innerHTML = `
                         <div class="empty-state">
                             <div class="empty-icon">⚠️</div>
-                            <p>加载工具列表失败，请刷新页面重试。</p>
+                            <p>工具列表加载失败 (原因: ${error.message})。</p>
+                            <button onclick="location.reload()" class="btn btn-secondary" style="margin-top: 15px;">
+                                <i class="fas fa-sync"></i> 重新加载页面
+                            </button>
                         </div>
                     `;
                 }
