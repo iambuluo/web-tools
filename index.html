@@ -764,7 +764,7 @@
         <section class="features-section" style="padding: 40px 0;">
             <div class="container">
                 <div class="tools-grid">
-                    <div class="tool-card">
+                    <a href="tools/ai-chat/app.html" class="tool-card clickable-card">
                         <div class="tool-header">
                             <div class="tool-icon" style="background: #e0e7ff; color: #6366f1;">💬</div>
                             <div class="tool-info">
@@ -773,8 +773,8 @@
                             </div>
                         </div>
                         <div class="tool-description">集成 GPT-4、Claude 3、文心一言等主流大模型，支持国内直连，随时随地开启智能对话。</div>
-                    </div>
-                    <div class="tool-card">
+                    </a>
+                    <a href="tools/ai-writer/app.html" class="tool-card clickable-card">
                         <div class="tool-header">
                             <div class="tool-icon" style="background: #fef3c7; color: #f59e0b;">✍️</div>
                             <div class="tool-info">
@@ -783,8 +783,8 @@
                             </div>
                         </div>
                         <div class="tool-description">专注于文案写作、论文润色、代码生成等实战场景，大幅提升您的创作效率。</div>
-                    </div>
-                    <div class="tool-card">
+                    </a>
+                    <a href="tools/ai-painter/app.html" class="tool-card clickable-card">
                         <div class="tool-header">
                             <div class="tool-icon" style="background: #dcfce7; color: #10b981;">🎨</div>
                             <div class="tool-info">
@@ -793,54 +793,7 @@
                             </div>
                         </div>
                         <div class="tool-description">聚合 Midjourney、DALL-E 3 等顶尖绘图 AI，提供提示词优化与设计实战指南。</div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="tutorials-section" style="padding: 40px 0;">
-            <div class="container">
-                <div class="section-header">
-                    <h2 class="section-title">精选实战教程</h2>
-                    <a href="blog/" class="btn btn-secondary">查看全部</a>
-                </div>
-                <div class="tools-grid">
-                    <a href="blog/gpt-4o-guide.html" class="tool-card">
-                        <div class="tool-title">国内如何使用 GPT-4o：保姆级入门指南</div>
-                        <p class="tool-description">详细介绍 GPT-4o 的核心功能及国内直连使用方法，新手必看。</p>
                     </a>
-                    <a href="blog/mj-prompt-guide.html" class="tool-card">
-                        <div class="tool-title">Midjourney 提示词入门：从零打造大师级作品</div>
-                        <p class="tool-description">掌握提示词公式，让你的 AI 绘图不再“开盲盒”。</p>
-                    </a>
-                    <a href="blog/claude-3-vs-gpt-4.html" class="tool-card">
-                        <div class="tool-title">Claude 3 vs GPT-4：哪个模型更适合内容创作？</div>
-                        <p class="tool-description">深度对比两大顶尖模型在长文创作、逻辑推理方面的表现。</p>
-                    </a>
-                    <a href="blog/ai-writing-workflow.html" class="tool-card">
-                        <div class="tool-title">高效办公：构建你的 AI 写作自动化工作流</div>
-                        <p class="tool-description">如何利用 AI 工具在 30 分钟内完成一篇高质量行业报告。</p>
-                    </a>
-                </div>
-            </div>
-        </section>
-
-        <section class="testimonials-section" style="padding: 60px 0; background: var(--bg-card); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
-            <div class="container">
-                <h2 style="text-align: center; margin-bottom: 40px;">用户评价与合作伙伴</h2>
-                <div class="tools-grid">
-                    <div class="tool-card" style="text-align: center;">
-                        <p style="font-style: italic; margin-bottom: 16px;">“AI ChatX 解决了我们团队使用前沿 AI 工具的门槛问题，效率提升非常明显。”</p>
-                        <div style="font-weight: 600;">—— 张三，某互联网公司内容运营</div>
-                    </div>
-                    <div class="tool-card" style="text-align: center;">
-                        <p style="font-style: italic; margin-bottom: 16px;">“这里的教程非常落地，特别是提示词优化的部分，帮我省去了很多摸索的时间。”</p>
-                        <div style="font-weight: 600;">—— 李四，独立开发者</div>
-                    </div>
-                    <div class="tool-card" style="text-align: center;">
-                        <div style="font-size: 24px; margin-bottom: 16px;">🤝</div>
-                        <div style="font-weight: 600;">合作伙伴：腾讯云、百度智能云、阿里云</div>
-                    </div>
                 </div>
             </div>
         </section>
@@ -875,12 +828,59 @@
             <div class="container">
                 <div class="favorites-section" id="favorites-section"></div>
                 <div class="section-header">
-                    <h2 class="section-title">工具列表</h2>
+                    <h2 class="section-title">常用效率工具</h2>
                     <span class="tools-count" id="tools-count-label">加载中...</span>
                 </div>
                 <div class="tools-grid" id="tools-grid">
                     <div class="loading">
                         <i class="fas fa-spinner fa-spin"></i> 加载工具列表...
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="tutorials-section" style="padding: 40px 0;">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">精选实战教程</h2>
+                    <a href="blog/" class="btn btn-secondary">查看全部</a>
+                </div>
+                <div class="tools-grid">
+                    <a href="blog/gpt-4o-guide.html" class="tool-card">
+                        <div class="tool-title">国内如何使用 GPT-4o：保姆级入门指南</div>
+                        <p class="tool-description">详细介绍 GPT-4o 的核心功能及国内直连使用方法，新手必看。</p>
+                    </a>
+                    <a href="blog/deepseek-vs-gpt4o.html" class="tool-card">
+                        <div class="tool-title">DeepSeek vs GPT-4o：国产 AI 崛起新局</div>
+                        <p class="tool-description">深度对比国产最强模型与 OpenAI 旗舰，探讨核心优势与应用场景。</p>
+                    </a>
+                    <a href="blog/prompt-engineering-master.html" class="tool-card">
+                        <div class="tool-title">提示词工程终极指南：从零到大师</div>
+                        <p class="tool-description">掌握 RTFC 框架与思维链，让 AI 产出质量提升 10 倍。</p>
+                    </a>
+                    <a href="blog/ai-writing-workflow.html" class="tool-card">
+                        <div class="tool-title">AI 写作自动化：30 分钟完成行业报告</div>
+                        <p class="tool-description">手把手教你搭建从资料收集到润色的 AI 写作高效工作流。</p>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section class="testimonials-section" style="padding: 60px 0; background: var(--bg-card); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
+            <div class="container">
+                <h2 style="text-align: center; margin-bottom: 40px;">用户评价与合作伙伴</h2>
+                <div class="tools-grid">
+                    <div class="tool-card" style="text-align: center;">
+                        <p style="font-style: italic; margin-bottom: 16px;">“AI ChatX 解决了我们团队使用前沿 AI 工具的门槛问题，效率提升非常明显。”</p>
+                        <div style="font-weight: 600;">—— 张三，某互联网公司内容运营</div>
+                    </div>
+                    <div class="tool-card" style="text-align: center;">
+                        <p style="font-style: italic; margin-bottom: 16px;">“这里的教程非常落地，特别是提示词优化的部分，帮我省去了很多摸索的时间。”</p>
+                        <div style="font-weight: 600;">—— 李四，独立开发者</div>
+                    </div>
+                    <div class="tool-card" style="text-align: center;">
+                        <div style="font-size: 24px; margin-bottom: 16px;">🤝</div>
+                        <div style="font-weight: 600;">合作伙伴：腾讯云、百度智能云、阿里云</div>
                     </div>
                 </div>
             </div>
@@ -952,7 +952,8 @@
 
         async function loadTools() {
             try {
-                const response = await fetch('index.json');
+                const response = await fetch('./index.json');
+                if (!response.ok) throw new Error('Network response was not ok');
                 const data = await response.json();
                 toolsData = data;
                 renderCategories();
@@ -961,12 +962,15 @@
                 return Promise.resolve();
             } catch (error) {
                 console.error('Failed to load tools:', error);
-                document.getElementById('tools-grid').innerHTML = `
-                    <div class="empty-state">
-                        <div class="empty-icon">⚠️</div>
-                        <p>加载工具列表失败，请刷新页面重试。</p>
-                    </div>
-                `;
+                const container = document.getElementById('tools-grid');
+                if (container) {
+                    container.innerHTML = `
+                        <div class="empty-state">
+                            <div class="empty-icon">⚠️</div>
+                            <p>加载工具列表失败，请刷新页面重试。</p>
+                        </div>
+                    `;
+                }
                 return Promise.reject(error);
             }
         }
