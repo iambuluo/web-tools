@@ -730,7 +730,7 @@
                         <i class="fas fa-moon"></i>
                     </button>
                     <a href="./" class="btn btn-secondary">首页</a>
-                    <a href="tools/" class="btn btn-secondary">AI 工具</a>
+                    <a href="#tools-section" class="btn btn-secondary">AI 工具</a>
                     <a href="blog/" class="btn btn-secondary">实战教程</a>
                     <a href="about.html" class="btn btn-secondary">关于我们</a>
                     <a href="contact.html" class="btn btn-secondary">联系方式</a>
@@ -764,7 +764,7 @@
         <section class="features-section" style="padding: 40px 0;">
             <div class="container">
                 <div class="tools-grid">
-                    <a href="tools/ai-chat/app.html" class="tool-card clickable-card">
+                    <a href="#tools-section" onclick="selectCategory('all'); document.getElementById('search-input').value='GPT'; searchQuery='gpt'; renderTools();" class="tool-card clickable-card">
                         <div class="tool-header">
                             <div class="tool-icon" style="background: #e0e7ff; color: #6366f1;">💬</div>
                             <div class="tool-info">
@@ -774,7 +774,7 @@
                         </div>
                         <div class="tool-description">集成 GPT-4、Claude 3、文心一言等主流大模型，支持国内直连，随时随地开启智能对话。</div>
                     </a>
-                    <a href="tools/ai-writer/app.html" class="tool-card clickable-card">
+                    <a href="#tools-section" onclick="selectCategory('all'); document.getElementById('search-input').value='写作'; searchQuery='写作'; renderTools();" class="tool-card clickable-card">
                         <div class="tool-header">
                             <div class="tool-icon" style="background: #fef3c7; color: #f59e0b;">✍️</div>
                             <div class="tool-info">
@@ -784,7 +784,7 @@
                         </div>
                         <div class="tool-description">专注于文案写作、论文润色、代码生成等实战场景，大幅提升您的创作效率。</div>
                     </a>
-                    <a href="tools/ai-painter/app.html" class="tool-card clickable-card">
+                    <a href="#tools-section" onclick="selectCategory('all'); document.getElementById('search-input').value='图片'; searchQuery='图片'; renderTools();" class="tool-card clickable-card">
                         <div class="tool-header">
                             <div class="tool-icon" style="background: #dcfce7; color: #10b981;">🎨</div>
                             <div class="tool-info">
@@ -824,7 +824,7 @@
             </div>
         </section>
 
-        <section class="tools-section">
+        <section class="tools-section" id="tools-section">
             <div class="container">
                 <div class="favorites-section" id="favorites-section"></div>
                 <div class="section-header">
@@ -1313,13 +1313,14 @@
         }
 
         // Initialize
-        loadURLState();
-        initTheme();
-        loadHomeStats();
-        loadTools().then(() => {
-            renderFavorites();
+        document.addEventListener('DOMContentLoaded', () => {
+            loadURLState();
+            initTheme();
+            loadHomeStats();
+            loadTools().then(() => {
+                renderFavorites();
+            });
         });
-
     </script>
     <script src="assets/clicks.js" defer></script>
 </body>
