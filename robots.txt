@@ -1,5 +1,14 @@
 User-agent: *
 Allow: /
 
+# 重要页面
+Allow: /index.html
+Allow: /about.html
+Allow: /contact.html
+Allow: /privacy.html
+Allow: /terms.html
+Allow: /blog/
+Allow: /tools/
+
 # Sitemap
 Sitemap: https://www.aichatx.com.cn/sitemap.xml
