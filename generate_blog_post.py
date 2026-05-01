@@ -172,10 +172,21 @@ blog_posts_data = [
 ]
 
 def generate_slug(title):
-    # 将中文标题转换为拼音或去除特殊字符，生成URL友好的slug
-    # 这里简化处理，直接去除特殊字符和空格，转换为小写
-    slug = re.sub(r'[^a-zA-Z0-9\u4e00-\u9fa5]+', '-', title) # 保留中文
-    slug = slug.strip('-').lower()
+    # 尝试从标题中提取英文单词和数字
+    english_words_and_numbers = re.findall(r'[a-zA-Z0-9]+', title)
+    
+    if english_words_and_numbers:
+        # 如果找到英文单词或数字，用它们构建slug
+        slug = '-'.join(english_words_and_numbers).lower()
+    else:
+        # 如果标题中没有英文单词或数字（即纯中文），则生成一个基于时间的通用slug
+        # 这确保了slug是ASCII且唯一，但缺乏语义。
+        now = datetime.datetime.now()
+        slug = f"blog-post-{now.strftime('%Y%m%d%H%M%S')}"
+    
+    # 清理slug，确保没有连续的连字符或首尾连字符
+    slug = re.sub(r'-+', '-', slug).strip('-')
+    
     return slug
 
 def create_blog_post(post_data):
