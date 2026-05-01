@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AiChatX Tools 博客 - 技术教程与工具指南</title>
+    <meta name="description" content="AiChatX Tools 官方博客，分享开发效率提升技巧、工具使用指南以及前沿技术资讯。">
+    <link rel="canonical" href="https://www.aichatx.com.cn/blog/">
+    <link rel="icon" href="../favicon.svg">
+    <link rel="stylesheet" href="../assets/vendor/fontawesome/css/all.min.css">
+    
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2259331322940741" crossorigin="anonymous"></script>
+
+    <style>
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --secondary: #8b5cf6;
+            --bg: #0f172a;
+            --bg-card: #1e293b;
+            --bg-hover: #334155;
+            --text: #f1f5f9;
+            --text-muted: #94a3b8;
+            --border: #334155;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+        }
+
+        [data-theme="light"] {
+            --bg: #ffffff;
+            --bg-card: #f8fafc;
+            --bg-hover: #e2e8f0;
+            --text: #1e293b;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        header {
+            background: var(--bg-card);
+            border-bottom: 1px solid var(--border);
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 700;
+            font-size: 20px;
+        }
+
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+        }
+
+        main {
+            flex: 1;
+            padding: 60px 0;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .page-header h1 {
+            font-size: 36px;
+            margin-bottom: 16px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .page-header p {
+            color: var(--text-muted);
+            font-size: 18px;
+        }
+
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .blog-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: transform 0.2s, box-shadow 0.2s;
+            display: flex;
+            flex-direction: column;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .blog-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow);
+            border-color: var(--primary);
+        }
+
+        .blog-content {
+            padding: 24px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .blog-tag {
+            font-size: 12px;
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+        }
+
+        .blog-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            line-height: 1.4;
+        }
+
+        .blog-excerpt {
+            color: var(--text-muted);
+            font-size: 14px;
+            margin-bottom: 20px;
+            flex: 1;
+        }
+
+        .blog-meta {
+            font-size: 12px;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-top: 1px solid var(--border);
+            padding-top: 16px;
+            margin-top: auto;
+        }
+
+        footer {
+            background: var(--bg-card);
+            border-top: 1px solid var(--border);
+            padding: 40px 0;
+            margin-top: 60px;
+            text-align: center;
+            color: var(--text-muted);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="../index.html" class="logo">
+                    <div class="logo-icon">🤖</div>
+                    <span>AI ChatX</span>
+                </a>
+                <nav>
+                    <a href="../index.html" class="nav-link">首页</a>
+                    <a href="../tools/" class="nav-link">AI 工具</a>
+                    <a href="./" class="nav-link active">实战教程</a>
+                    <a href="../about.html" class="nav-link">关于我们</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="blog-header">
+            <h1>AI 实战教程与指南</h1>
+            <p>分享最落地的 AI 应用方案，降低前沿技术的使用门槛。</p>
+        </div>
+
+        <div class="blog-grid">
+            <!-- Article 1: DeepSeek vs GPT-4o -->
+            <a href="deepseek-vs-gpt4o.html" class="blog-card">
+                <div class="blog-content">
+                    <div class="blog-tag">行业观察</div>
+                    <h2 class="blog-title">DeepSeek vs GPT-4o：国产 AI 的崛起与全球竞争新局</h2>
+                    <p class="blog-excerpt">DeepSeek-V3 的发布震惊了全球。本文深度对比国产最强模型与 OpenAI 旗舰，探讨核心优势、应用场景及未来趋势。</p>
+                    <div class="blog-meta">
+                        <span><i class="far fa-calendar"></i> 2026-03-01</span>
+                        <span><i class="far fa-clock"></i> 12 分钟阅读</span>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Article 2: Career Moat -->
+            <a href="ai-career-moat.html" class="blog-card">
+                <div class="blog-content">
+                    <div class="blog-tag">思维转型</div>
+                    <h2 class="blog-title">AI 时代的职业焦虑：如何构建你的“不被替代”护城河</h2>
+                    <p class="blog-excerpt">AI 正在重塑职场。深度探讨普通职场人如何通过思维转型、工具化能力以及独特的个人品牌构建核心竞争力。</p>
+                    <div class="blog-meta">
+                        <span><i class="far fa-calendar"></i> 2026-03-01</span>
+                        <span><i class="far fa-clock"></i> 12 分钟阅读</span>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Article 3: AI Painting -->
+            <a href="ai-painting-battle.html" class="blog-card">
+                <div class="blog-content">
+                    <div class="blog-tag">AI 绘画</div>
+                    <h2 class="blog-title">AI 绘图实战：从咒语到艺术，Midjourney 与 DALL-E 3 深度博弈</h2>
+                    <p class="blog-excerpt">深度对比 MJ 与 DALL-E 3，通过实战案例讲解如何让 AI 绘图从“开盲盒”变成可控的艺术创作。</p>
+                    <div class="blog-meta">
+                        <span><i class="far fa-calendar"></i> 2026-03-01</span>
+                        <span><i class="far fa-clock"></i> 15 分钟阅读</span>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Article 4: AI Side Hustle -->
+            <a href="ai-side-hustle.html" class="blog-card">
+                <div class="blog-content">
+                    <div class="blog-tag">赚钱实战</div>
+                    <h2 class="blog-title">普通人如何靠 AI 赚到第一桶金？揭秘 3 个可落地的 AI 副业方案</h2>
+                    <p class="blog-excerpt">避开虚头巴脑的口号，揭秘定制化提示词买卖、垂直内容运营等 3 个通过 AI 即可上手的致富路径。</p>
+                    <div class="blog-meta">
+                        <span><i class="far fa-calendar"></i> 2026-03-01</span>
+                        <span><i class="far fa-clock"></i> 18 分钟阅读</span>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Article 5: Privacy Security -->
+            <a href="ai-privacy-security.html" class="blog-card">
+                <div class="blog-content">
+                    <div class="blog-tag">安全指南</div>
+                    <h2 class="blog-title">AI 安全与隐私：在对话框输入内容时，你必须知道的风险</h2>
+                    <p class="blog-excerpt">数据就是石油，但隐私是底线。解析使用 AI 工具时的隐私泄露风险，并分享保障数据安全的最佳实践。</p>
+                    <div class="blog-meta">
+                        <span><i class="far fa-calendar"></i> 2026-03-01</span>
+                        <span><i class="far fa-clock"></i> 14 分钟阅读</span>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Article 6: Tools Roundup -->
+            <a href="ai-tools-roundup-2026.html" class="blog-card">
+                <div class="blog-content">
+                    <div class="blog-tag">工具评测</div>
+                    <h2 class="blog-title">2026 AI 工具年度大盘点：哪些神器值得你一直续费？</h2>
+                    <p class="blog-excerpt">测试超 200 款工具后的总结榜单。涵盖聊天、办公、编程、绘画等领域，帮你筛选出真正的生产力神器。</p>
+                    <div class="blog-meta">
+                        <span><i class="far fa-calendar"></i> 2026-03-01</span>
+                        <span><i class="far fa-clock"></i> 20 分钟阅读</span>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Article 7: Prompt Engineering -->
+            <a href="prompt-engineering-master.html" class="blog-card">
+                <div class="blog-content">
+                    <div class="blog-tag">实战技巧</div>
+                    <h2 class="blog-title">AI 提示词工程（Prompt Engineering）终极指南：从零到大师</h2>
+                    <p class="blog-excerpt">AI 好不好，关键看提示词。本文通过系统化的实战案例，深入浅出地讲解 RTFC 框架、思维链等提示词核心方法论。</p>
+                    <div class="blog-meta">
+                        <span><i class="far fa-calendar"></i> 2026-03-01</span>
+                        <span><i class="far fa-clock"></i> 15 分钟阅读</span>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Article 8: AI Writing Workflow -->
+            <a href="ai-writing-workflow.html" class="blog-card">
+                <div class="blog-content">
+                    <div class="blog-tag">内容运营</div>
+                    <h2 class="blog-title">AI 写作自动化工作流：30 分钟完成高质量行业报告</h2>
+                    <p class="blog-excerpt">面对复杂的报告，如何利用 AI 提升效率？手把手教你搭建从资料收集、大纲生成到润色的高效工作流。</p>
+                    <div class="blog-meta">
+                        <span><i class="far fa-calendar"></i> 2026-03-01</span>
+                        <span><i class="far fa-clock"></i> 18 分钟阅读</span>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Article 9: GPT-4o Guide -->
+            <a href="gpt-4o-guide.html" class="blog-card">
+                <div class="blog-content">
+                    <div class="blog-tag">AI 聊天助手</div>
+                    <h2 class="blog-title">国内如何使用 GPT-4o：保姆级入门指南</h2>
+                    <p class="blog-excerpt">详细介绍 GPT-4o 的核心功能及国内直连使用方法，新手必看。涵盖原生多模态等前沿特性。</p>
+                    <div class="blog-meta">
+                        <span><i class="far fa-calendar"></i> 2026-03-01</span>
+                        <span><i class="far fa-clock"></i> 8 分钟阅读</span>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Article 10: Mortgage -->
+            <a href="mortgage-calculator-guide.html" class="blog-card">
+                <div class="blog-content">
+                    <div class="blog-tag">实战指南</div>
+                    <h2 class="blog-title">购房攻略：如何使用房贷计算器做出明智决策</h2>
+                    <p class="blog-excerpt">在申请房贷时，选择等额本息还是等额本金？本文深入解析两种还款方式的区别，并教您如何规划方案。</p>
+                    <div class="blog-meta">
+                        <span><i class="far fa-calendar"></i> 2026-02-19</span>
+                        <span><i class="far fa-clock"></i> 6 分钟阅读</span>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Article 2 -->
+            <a href="json-formatting-guide.html" class="blog-card">
+                <div class="blog-content">
+                    <div class="blog-tag">开发效率</div>
+                    <h2 class="blog-title">为什么 JSON 格式化工具是开发者必备神器</h2>
+                    <p class="blog-excerpt">面对乱麻一样的 JSON 数据头疼吗？了解格式化工具如何帮助您快速排查 Bug、验证数据结构并提高开发效率。</p>
+                    <div class="blog-meta">
+                        <span><i class="far fa-calendar"></i> 2026-02-19</span>
+                        <span><i class="far fa-clock"></i> 4 分钟阅读</span>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Article 3 -->
+            <a href="image-optimization-guide.html" class="blog-card">
+                <div class="blog-content">
+                    <div class="blog-tag">网站优化</div>
+                    <h2 class="blog-title">提升网站加载速度：图片压缩与格式转换实战</h2>
+                    <p class="blog-excerpt">图片是拖慢网站速度的元凶。学习如何使用 WebP 和压缩工具，将图片体积减少 80%，显著提升 SEO 排名。</p>
+                    <div class="blog-meta">
+                        <span><i class="far fa-calendar"></i> 2026-02-19</span>
+                        <span><i class="far fa-clock"></i> 5 分钟阅读</span>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Article 4 -->
+            <a href="regex-tester-guide.html" class="blog-card">
+                <div class="blog-content">
+                    <div class="blog-tag">文本处理</div>
+                    <h2 class="blog-title">正则表达式测试实战：用 Regex Tester 快速定位匹配</h2>
+                    <p class="blog-excerpt">实时高亮与分组预览，帮你迅速验证模式、避免过度匹配与边界误用。</p>
+                    <div class="blog-meta">
+                        <span><i class="far fa-calendar"></i> 2026-02-27</span>
+                        <span><i class="far fa-clock"></i> 4 分钟阅读</span>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Article 5 -->
+            <a href="markdown-wechat-guide.html" class="blog-card">
+                <div class="blog-content">
+                    <div class="blog-tag">内容排版</div>
+                    <h2 class="blog-title">Markdown 一键转微信排版：内容运营效率提升指南</h2>
+                    <p class="blog-excerpt">标题、图片、代码高亮全兼容，复制即用，让公众号排版不再烦恼。</p>
+                    <div class="blog-meta">
+                        <span><i class="far fa-calendar"></i> 2026-02-27</span>
+                        <span><i class="far fa-clock"></i> 4 分钟阅读</span>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Article 6 -->
+            <a href="webp-conversion-guide.html" class="blog-card">
+                <div class="blog-content">
+                    <div class="blog-tag">网站优化</div>
+                    <h2 class="blog-title">高效图片压缩与 WebP 转换：站点速度翻倍</h2>
+                    <p class="blog-excerpt">结合图片压缩与 WebP 转换，在不牺牲清晰度的情况下显著降低体积。</p>
+                    <div class="blog-meta">
+                        <span><i class="far fa-calendar"></i> 2026-02-27</span>
+                        <span><i class="far fa-clock"></i> 5 分钟阅读</span>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Article 7 -->
+            <a href="qr-code-guide.html" class="blog-card">
+                <div class="blog-content">
+                    <div class="blog-tag">效率工具</div>
+                    <h2 class="blog-title">二维码生成与解码全攻略：提升运营效率</h2>
+                    <p class="blog-excerpt">自定义尺寸与颜色、插入 Logo、批量处理与快速解码，一篇搞定。</p>
+                    <div class="blog-meta">
+                        <span><i class="far fa-calendar"></i> 2026-02-27</span>
+                        <span><i class="far fa-clock"></i> 4 分钟阅读</span>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Article 8 -->
+            <a href="data-conversion-workflow.html" class="blog-card">
+                <div class="blog-content">
+                    <div class="blog-tag">数据处理</div>
+                    <h2 class="blog-title">CSV/JSON/YAML 相互转换工作流：数据处理不再头疼</h2>
+                    <p class="blog-excerpt">覆盖常见转换场景与数据坑，打造稳定可靠的数据管线。</p>
+                    <div class="blog-meta">
+                        <span><i class="far fa-calendar"></i> 2026-02-27</span>
+                        <span><i class="far fa-clock"></i> 5 分钟阅读</span>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 AiChatX Tools. All Rights Reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
