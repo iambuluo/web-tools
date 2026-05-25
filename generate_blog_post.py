@@ -8,6 +8,17 @@ import json
 BLOG_DIR = "d:\\小程序\\web-tools_aichatx.com.cn\\blog"
 TEMPLATE_FILE = "d:\\小程序\\web-tools_aichatx.com.cn\\blog_template.html"
 INDEX_FILE = "d:\\小程序\\web-tools_aichatx.com.cn\\blog\\index.html"
+GENERATED_BLOGS_JSON = "d:\\小程序\\web-tools_aichatx.com.cn\\generated_blogs.json"
+
+def load_generated_blogs():
+    if os.path.exists(GENERATED_BLOGS_JSON):
+        with open(GENERATED_BLOGS_JSON, "r", encoding="utf-8") as f:
+            return json.load(f)
+    return []
+
+def save_generated_blogs(blogs):
+    with open(GENERATED_BLOGS_JSON, "w", encoding="utf-8") as f:
+        json.dump(blogs, f, ensure_ascii=False, indent=4)
 
 # 博客文章数据结构
 blog_posts_data = [
@@ -225,7 +236,7 @@ def create_blog_post(post_data):
     with open(filepath, "w", encoding="utf-8") as f:
         f.write(new_article_html)
     print(f"成功生成文章: {filepath}")
-    return {"title": title, "slug": slug, "description": description, "date": today, "category": category, "read_time": read_time}
+    return {"title": title, "slug": f"{slug}.html", "description": description, "date": today, "category": category, "read_time": read_time}
 
 def update_blog_index(new_articles_info):
     if not new_articles_info:
@@ -234,9 +245,6 @@ def update_blog_index(new_articles_info):
     with open(INDEX_FILE, "r", encoding="utf-8") as f:
         index_content = f.read()
 
-    # 找到 <!-- Article 1: DeepSeek vs GPT-4o --> 的位置，在此之前插入新文章
-    # 或者找到 <div class="blog-grid"> 的结束标签位置，在其前面插入
-    # 寻找第一个 <!-- Article: --> 注释之前插入，或者直接在 <div class="blog-grid"> 之后插入
     insert_point_match = re.search(r'(<div class="blog-grid">\s*)', index_content)
     if not insert_point_match:
         print("未找到博客列表插入点，请检查 blog/index.html 结构。")
@@ -244,11 +252,12 @@ def update_blog_index(new_articles_info):
 
     insert_point_end = insert_point_match.end()
     
+    # 准备新文章的 HTML 条目，按照逆序插入，确保最新文章在最前面
     new_entries_html = ""
-    for article in new_articles_info:
+    for article in reversed(new_articles_info): # 注意这里是 reversed
         entry_html = f"""
             <!-- Article: {article['title']} -->
-            <a href="{article['slug']}.html" class="blog-card">
+            <a href="{article['slug']}" class="blog-card">
                 <div class="blog-content">
                     <div class="blog-tag">{article['category']}</div>
                     <h2 class="blog-title">{article['title']}</h2>
@@ -262,31 +271,47 @@ def update_blog_index(new_articles_info):
         """
         new_entries_html += entry_html
 
-    updated_index_content = index_content[:insert_point_end] + new_entries_html + index_content[insert_point_end:]
+    # 插入新的文章条目到 index.html
+    # 首先移除旧的 AI 生成文章，避免重复
+    updated_index_content = re.sub(r'<!-- Article: .*? -->\s*<a href=".*?\.html" class="blog-card">.*?</a>', '', index_content, flags=re.DOTALL)
+    # 然后在正确的位置插入新的
+    updated_index_content = updated_index_content[:insert_point_end] + new_entries_html + updated_index_content[insert_point_end:]
 
     with open(INDEX_FILE, "w", encoding="utf-8") as f:
         f.write(updated_index_content)
     print(f"成功更新博客主页: {INDEX_FILE}")
 
 def main(num_articles_to_generate=1):
+    all_generated_blogs = load_generated_blogs() # 加载所有已生成的博客元数据
+    generated_slugs = {blog['slug'] for blog in all_generated_blogs} # 存储已生成的slug
+
     random.shuffle(blog_posts_data) # 随机选择文章
-    generated_articles_info = []
+    newly_generated_articles_info = []
 
     articles_generated_count = 0
     for post in blog_posts_data:
+        slug_candidate = generate_slug(post["title"])
+        if f"{slug_candidate}.html" in generated_slugs: # 检查是否已经生成过
+            print(f"文章 '{post['title']}' (slug: {slug_candidate}.html) 已存在于 generated_blogs.json，跳过生成。")
+            continue
+
         if articles_generated_count >= num_articles_to_generate:
             break
 
         article_info = create_blog_post(post)
         if article_info:
-            generated_articles_info.append(article_info)
+            newly_generated_articles_info.append(article_info)
             articles_generated_count += 1
 
-    update_blog_index(generated_articles_info)
+    if newly_generated_articles_info:
+        update_blog_index(newly_generated_articles_info)
+        all_generated_blogs.extend(newly_generated_articles_info) # 将新生成的文章添加到总列表中
+        save_generated_blogs(all_generated_blogs) # 保存更新后的列表
+
+    if not newly_generated_articles_info:
+        print("没有生成新的博客文章。可能所有文章都已生成或达到指定数量。")
 
 if __name__ == "__main__":
-    # 可以通过命令行参数指定生成数量，例如：python generate_blog_post.py 2
-    import sys
     num_to_generate = 1
     if len(sys.argv) > 1:
         try:
